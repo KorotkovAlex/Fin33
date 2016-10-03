@@ -55,4 +55,13 @@ public class Bank {
     public String getImg() {
         return img;
     }
+
+    public ExchangeRate getExchangeRates(ExchangeRate.Currency currency, ExchangeRate.Kind kind) {
+        for (ExchangeRate exchangeRate : exchangeRates) {
+            if(exchangeRate.getCurrency() == currency && exchangeRate.getKind() == kind){
+                return  exchangeRate;
+            }
+        }
+        return null;
+    }
 }

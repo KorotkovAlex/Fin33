@@ -14,8 +14,6 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private String[] mDataset;
-    private String[] usdPrice;
-    private String[] eurPrice;
     private List<Bank> banks;
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -25,8 +23,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public TextView mTextView;
         public TextView textView3;
         public TextView textView4;
-        public TextView textView5;
-        public TextView textView6;
+        public TextView textViewPriceBuy;
+        public TextView textViewPriceSell;
         public ImageView imageView1;
         public ImageView imageView2;
         public ViewHolder(View v) {
@@ -34,8 +32,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mTextView =(TextView) v.findViewById(R.id.currency);
             textView3 =(TextView) v.findViewById(R.id.textView3);
             textView4 =(TextView) v.findViewById(R.id.textView4);
-            textView5 =(TextView) v.findViewById(R.id.textView5);
-            textView6 =(TextView) v.findViewById(R.id.textView6);
+            textViewPriceBuy =(TextView) v.findViewById(R.id.textViewPriceBuy);
+            textViewPriceSell =(TextView) v.findViewById(R.id.textViewPriceSell);
             imageView1 =(ImageView) v.findViewById(R.id.imageView1);
             imageView2 =(ImageView) v.findViewById(R.id.imageView2);
         }
@@ -75,7 +73,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 List<ExchangeRate> exchangeRates;
                 exchangeRates = bank.getExchangeRates();
                 if (exchangeRates.get(0).isBest()) {
-                    holder.textView5.setText("" + exchangeRates.get(0).getPrice());
+                    holder.textViewPriceBuy.setText("" + exchangeRates.get(0).getPrice());
                     holder.textView3.setText("" + bank.getName());
                     if(exchangeRates.get(0).getTrend() == ExchangeRate.Trend.UP) {
                         holder.imageView1.setImageResource(R.mipmap.ic_up);
@@ -85,12 +83,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
                 }
                 if (exchangeRates.get(1).isBest()) {
-                    holder.textView6.setText("" + exchangeRates.get(1).getPrice());
+                    holder.textViewPriceSell.setText("" + exchangeRates.get(1).getPrice());
                     holder.textView4.setText("" + bank.getName());
                     if(exchangeRates.get(1).getTrend() == ExchangeRate.Trend.UP) {
-                        holder.imageView1.setImageResource(R.mipmap.ic_up);
+                        holder.imageView2.setImageResource(R.mipmap.ic_up);
                     }else if(exchangeRates.get(1).getTrend() == ExchangeRate.Trend.DOWN){
-                        holder.imageView1.setImageResource(R.mipmap.ic_down);
+                        holder.imageView2.setImageResource(R.mipmap.ic_down);
                     }
                 }
             }
@@ -101,7 +99,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 List<ExchangeRate> exchangeRates;
                 exchangeRates = bank.getExchangeRates();
                 if (exchangeRates.get(2).isBest()) {
-                    holder.textView5.setText("" + exchangeRates.get(2).getPrice());
+                    holder.textViewPriceBuy.setText("" + exchangeRates.get(2).getPrice());
                     holder.textView3.setText("" + bank.getName());
                     if(exchangeRates.get(2).getTrend() == ExchangeRate.Trend.UP) {
                         holder.imageView1.setImageResource(R.mipmap.ic_up);
@@ -111,12 +109,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
                 }
                 if (exchangeRates.get(3).isBest()) {
-                    holder.textView6.setText("" + exchangeRates.get(3).getPrice());
+                    holder.textViewPriceSell.setText("" + exchangeRates.get(3).getPrice());
                     holder.textView4.setText("" + bank.getName());
                     if(exchangeRates.get(3).getTrend() == ExchangeRate.Trend.UP) {
-                        holder.imageView1.setImageResource(R.mipmap.ic_up);
+                        holder.imageView2.setImageResource(R.mipmap.ic_up);
                     }else if(exchangeRates.get(3).getTrend() == ExchangeRate.Trend.DOWN){
-                        holder.imageView1.setImageResource(R.mipmap.ic_down);
+                        holder.imageView2.setImageResource(R.mipmap.ic_down);
                     }
                 }
             }

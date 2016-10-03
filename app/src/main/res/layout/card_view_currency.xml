@@ -1,0 +1,73 @@
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical|center_horizontal"
+                android:id="@+id/linearLayoutBuy">
+
+                <com.anjlab.fin33.view.PriceBuyView
+                    android:id="@+id/TextViewBuy"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:id="@+id/linearLayoutSell">
+
+                <com.anjlab.fin33.view.PriceSellView
+                    android:id="@+id/TextViewSell"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Название банка"
+            android:id="@+id/textView4"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="2dp"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
