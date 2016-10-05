@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.anjlab.fin33.model.Bank;
+import com.anjlab.fin33.model.ExchangeRate;
 import com.anjlab.fin33.model.Fin33Parser;
+import com.anjlab.fin33.model.ParseCompletedListener;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -55,18 +57,21 @@ public class MainFragment extends Fragment {
                 mRecyclerView.setLayoutManager(mLayoutManager);
         try {
             doc = Jsoup.parse(getActivity().getAssets().open("fin33_16_09_2016.html"), "windows-1251", "");
-            banks = new Fin33Parser().parseMainInfo(doc);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+            new Fin33Parser().parseMainInfo(doc, new ParseCompletedListener() {
+                @Override
+                public void onParseDone(List<Bank> banks) {
+                    MainFragment.this.banks = banks;
+
+                    mAdapter = new MyAdapter(banks, new ExchangeRate.Currency[]{
+                            ExchangeRate.Currency.USD, ExchangeRate.Currency.EUR
+                    });
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+            });
+        } catch (Exception e) {
+           throw new RuntimeException("Error", e);
         }
 
-        myDataset = new String[2];
-        myDataset[0] = "Доллар,USD";
-        myDataset[1] = "Евро,EUR";
-        mAdapter = new MyAdapter(banks,myDataset);
-        mRecyclerView.setAdapter(mAdapter);
         return view;
     }
 

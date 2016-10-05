@@ -8,7 +8,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewPriceBuy"
+            android:id="@+id/textViewExchangeRate"
             android:gravity="center_vertical|center_horizontal"
             android:textSize="18sp"
             android:text="75.0000"

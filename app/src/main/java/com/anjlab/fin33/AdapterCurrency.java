@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.ExchangeRate;
+import com.anjlab.fin33.view.ExchangeRateView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,22 +26,18 @@ public class AdapterCurrency extends RecyclerView.Adapter<AdapterCurrency.ViewHo
     private List<Bank> banks;
     List<ExchangeRate> exchangeRates;
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView4;
-        public ImageView imageView1;
-        public ImageView imageView2;
+
         public LinearLayout linearLayoutBuy;
         public LinearLayout linearLayoutSell;
-        public TextView textViewPriceBuy;
-        public TextView textViewPriceSell;
+        public ExchangeRateView ervBuy;
+        public ExchangeRateView ervSell;
         public ViewHolder(View v) {
             super(v);
-            textView4 =(TextView) v.findViewById(R.id.textView4);
-            imageView1 =(ImageView) v.findViewById(R.id.imageView1);
-            imageView2 =(ImageView) v.findViewById(R.id.imageView2);
+            ervBuy =(ExchangeRateView) v.findViewById(R.id.ervBuy);
+            ervSell =(ExchangeRateView) v.findViewById(R.id.ervSell);
             linearLayoutBuy = (LinearLayout) v.findViewById(R.id.linearLayoutBuy);
             linearLayoutSell = (LinearLayout) v.findViewById(R.id.linearLayoutSell);
-            textViewPriceBuy =(TextView) v.findViewById(R.id.textViewPriceBuy);
-            textViewPriceSell =(TextView) v.findViewById(R.id.textViewPriceSell);
+            //textViewExchangeRate =(TextView) v.findViewById(R.id.textViewExchangeRate);
         }
 
 
@@ -65,7 +62,9 @@ public class AdapterCurrency extends RecyclerView.Adapter<AdapterCurrency.ViewHo
 
                 ExchangeRate sellRate = bank.getExchangeRates(currency,ExchangeRate.Kind.SELL);
                 ExchangeRate buyRate = bank.getExchangeRates(currency,ExchangeRate.Kind.BUY);
-
+                holder.ervBuy.setExchangeRate(buyRate);
+                holder.ervSell.setExchangeRate(sellRate);
+        
                 Log.d("sellRate.isBest()","" + sellRate.isBest());
                 if(sellRate.isBest()){
                     holder.linearLayoutSell.setBackgroundResource(R.color.colorBest);
@@ -73,19 +72,7 @@ public class AdapterCurrency extends RecyclerView.Adapter<AdapterCurrency.ViewHo
                 if(buyRate.isBest()){
                     holder.linearLayoutBuy.setBackgroundResource(R.color.colorBest);
                 }
-                    holder.textViewPriceBuy.setText("" + buyRate.getPrice());
-                    holder.textView4.setText("" + bank.getName());
-                    if(sellRate.getTrend() == ExchangeRate.Trend.UP) {
-                        holder.imageView1.setImageResource(R.mipmap.ic_up);
-                    }else if(sellRate.getTrend() == ExchangeRate.Trend.DOWN){
-                        holder.imageView1.setImageResource(R.mipmap.ic_down);
-                    }
-                   holder.textViewPriceSell.setText("" + sellRate.getPrice());
-                    if(buyRate.getTrend() == ExchangeRate.Trend.UP) {
-                        holder.imageView2.setImageResource(R.mipmap.ic_up);
-                    }else if(buyRate.getTrend() == ExchangeRate.Trend.DOWN){
-                        holder.imageView2.setImageResource(R.mipmap.ic_down);
-                    }
+
     }
     @Override
     public int getItemCount() {

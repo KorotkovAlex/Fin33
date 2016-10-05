@@ -1,5 +1,9 @@
 package com.anjlab.fin33.model;
 
+import android.util.Log;
+
+import com.anjlab.fin33.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +16,7 @@ public class Bank {
     private String address;
     private String phoneNumber;
     private String img;
+
     public void setName(String name) {
         this.name = name;
     }
@@ -21,8 +26,7 @@ public class Bank {
     }
 
     public void addExchangeRate(ExchangeRate exchangeRate) {
-        if (this.exchangeRates == null)
-        {
+        if (this.exchangeRates == null) {
             this.exchangeRates = new ArrayList<>();
         }
         this.exchangeRates.add(exchangeRate);
@@ -58,10 +62,32 @@ public class Bank {
 
     public ExchangeRate getExchangeRates(ExchangeRate.Currency currency, ExchangeRate.Kind kind) {
         for (ExchangeRate exchangeRate : exchangeRates) {
-            if(exchangeRate.getCurrency() == currency && exchangeRate.getKind() == kind){
-                return  exchangeRate;
+            if (exchangeRate.getCurrency() == currency
+                    && exchangeRate.getKind() == kind) {
+                return exchangeRate;
             }
         }
         return null;
+    }
+
+    public static ExchangeRate findBestRate(
+            List<Bank> banks, ExchangeRate.Currency currency, ExchangeRate.Kind kind) {
+        for (Bank bank : banks) {
+            ExchangeRate rate = bank.getExchangeRates(currency, kind);
+            Log.d("Bank", "bank: " + bank.getName() + "; currency=" + currency+";kind="+kind+";rate="+rate);
+            if (rate.isBest()) {
+                return rate;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "name='" + name + '\'' +
+                ", exchangeRates=" + exchangeRates +
+                '}';
     }
 }

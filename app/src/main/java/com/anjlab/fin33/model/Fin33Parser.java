@@ -25,14 +25,12 @@ import java.util.List;
  */
 public class Fin33Parser {
 
-    public List<Bank> parseMainInfo(final Document doc) throws ParseException {
+    public void parseMainInfo(final Document doc, final ParseCompletedListener listener) throws ParseException {
 
-        final List<Bank> banks = new ArrayList<>();
+
         //List<ExchangeRate> exchangeRates = new ArrayList<>();
-       Thread downloadThread =  new Thread () { //убрать поток
-           @Override
-           public void run() {
 
+               final List<Bank> banks = new ArrayList<>();
                     Elements trs = doc.select("table.otscourses tr");
                     trs.remove(0);
                     trs.remove(0);
@@ -77,11 +75,11 @@ public class Fin33Parser {
 
                     }
 
+               listener.onParseDone(banks);
             }
-        };
-        downloadThread.start();
 
-        return banks;
+
+
     }
     public ExchangeRate createExchangeRateFrom(Element td, ExchangeRate.Kind kind, ExchangeRate.Currency currency, Date docDate, Bank bank){
         ExchangeRate exchangeRate = new ExchangeRate();

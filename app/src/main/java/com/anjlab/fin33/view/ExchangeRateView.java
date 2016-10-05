@@ -9,14 +9,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anjlab.fin33.R;
+import com.anjlab.fin33.model.ExchangeRate;
 
 
 /**
  * Created by Саня on 22.09.2016.
  */
 public class ExchangeRateView extends LinearLayout {
-    private TextView textViewPriceBuy;
-    private ImageView imageView1;
+    private TextView textViewExchangeRate;
+    private ImageView imageViewTrend;
+    private ExchangeRate exchangeRate;
 
     public ExchangeRateView(Context context) {
         super(context);
@@ -37,9 +39,27 @@ public class ExchangeRateView extends LinearLayout {
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.ExchangeRateView, 0, 0);
         LayoutInflater.from(context).inflate(R.layout.exchange_rate_view, this);
-        textViewPriceBuy = (TextView) this.findViewById(R.id.textViewPriceBuy);
-        textViewPriceBuy.setText("Test");
-        imageView1 = (ImageView) this.findViewById(R.id.imageView1);
+        textViewExchangeRate = (TextView) this.findViewById(R.id.textViewExchangeRate);
+        textViewExchangeRate.setText("-0");
+        imageViewTrend = (ImageView) this.findViewById(R.id.imageView1);
+    }
+    public void setExchangeRate(ExchangeRate exchangeRate){
+        this.exchangeRate = exchangeRate;
 
+        if (exchangeRate ==  null)
+        {
+            throw new RuntimeException("exchangeRate ==  null");
+        } else {
+            textViewExchangeRate.setText(exchangeRate.getPrice().toString());
+
+            if (exchangeRate.getTrend() == ExchangeRate.Trend.UP) {
+                imageViewTrend.setImageResource(R.mipmap.ic_up);
+            } else if (exchangeRate.getTrend() == ExchangeRate.Trend.DOWN) {
+                imageViewTrend.setImageResource(R.mipmap.ic_down);
+            } else {
+                //  TODO test
+                imageViewTrend.setImageBitmap(null);
+            }
+        }
     }
 }

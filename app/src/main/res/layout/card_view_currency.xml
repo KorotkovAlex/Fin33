@@ -29,8 +29,8 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:id="@+id/linearLayoutBuy">
 
-                <com.anjlab.fin33.view.PriceBuyView
-                    android:id="@+id/TextViewBuy"
+                <com.anjlab.fin33.view.ExchangeRateView
+                    android:id="@+id/ervBuy"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="30dp"
@@ -47,8 +47,8 @@
                 android:gravity="center_horizontal"
                 android:id="@+id/linearLayoutSell">
 
-                <com.anjlab.fin33.view.PriceSellView
-                    android:id="@+id/TextViewSell"
+                <com.anjlab.fin33.view.ExchangeRateView
+                    android:id="@+id/ervSell"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="30dp"

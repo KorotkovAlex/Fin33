@@ -9,11 +9,12 @@ import android.widget.TextView;
 
 import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.ExchangeRate;
+import com.anjlab.fin33.view.ExchangeRateView;
 
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private String[] mDataset;
+    private ExchangeRate.Currency[] currencies;
     private List<Bank> banks;
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -21,30 +22,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mTextView;
-        public TextView textView3;
-        public TextView textView4;
-        public TextView textViewPriceBuy;
-        public TextView textViewPriceSell;
-        public ImageView imageView1;
-        public ImageView imageView2;
+
+        public ExchangeRateView ervBuy;
+        public ExchangeRateView ervSell;
         public ViewHolder(View v) {
             super(v);
-            mTextView =(TextView) v.findViewById(R.id.currency);
-            textView3 =(TextView) v.findViewById(R.id.textView3);
-            textView4 =(TextView) v.findViewById(R.id.textView4);
-            textViewPriceBuy =(TextView) v.findViewById(R.id.textViewPriceBuy);
-            textViewPriceSell =(TextView) v.findViewById(R.id.textViewPriceSell);
-            imageView1 =(ImageView) v.findViewById(R.id.imageView1);
-            imageView2 =(ImageView) v.findViewById(R.id.imageView2);
+            mTextView = (TextView) v.findViewById(R.id.currency);
+            ervBuy =(ExchangeRateView) v.findViewById(R.id.ervBuy);
+            ervSell =(ExchangeRateView) v.findViewById(R.id.ervSell);
         }
 
 
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<Bank> banks, String[] mDataset) {
+    public MyAdapter(List<Bank> banks, ExchangeRate.Currency[] currencies) {
         this.banks = banks;
-        this.mDataset = mDataset;
+        this.currencies = currencies;
     }
 
     // Create new views (invoked by the layout manager)
@@ -65,67 +59,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        holder.mTextView.setText(mDataset[position]);
+        ExchangeRate.Currency currency = currencies[position];// ExchangeRate.Currency.USD;
+        holder.mTextView.setText(getTitle(currency));
 
-        if(position == 0) {
-            for (int i = 0; banks.size() > i; i++) {
-                Bank bank = banks.get(i);
-                List<ExchangeRate> exchangeRates;
-                exchangeRates = bank.getExchangeRates();
-                if (exchangeRates.get(0).isBest()) {
-                    holder.textViewPriceBuy.setText("" + exchangeRates.get(0).getPrice());
-                    holder.textView3.setText("" + bank.getName());
-                    if(exchangeRates.get(0).getTrend() == ExchangeRate.Trend.UP) {
-                        holder.imageView1.setImageResource(R.mipmap.ic_up);
-                    }else if(exchangeRates.get(0).getTrend() == ExchangeRate.Trend.DOWN){
-                        holder.imageView1.setImageResource(R.mipmap.ic_down);
-                    }
+        holder.ervBuy.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.BUY));
+        holder.ervSell.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL));
+    }
 
-                }
-                if (exchangeRates.get(1).isBest()) {
-                    holder.textViewPriceSell.setText("" + exchangeRates.get(1).getPrice());
-                    holder.textView4.setText("" + bank.getName());
-                    if(exchangeRates.get(1).getTrend() == ExchangeRate.Trend.UP) {
-                        holder.imageView2.setImageResource(R.mipmap.ic_up);
-                    }else if(exchangeRates.get(1).getTrend() == ExchangeRate.Trend.DOWN){
-                        holder.imageView2.setImageResource(R.mipmap.ic_down);
-                    }
-                }
-            }
+    private String getTitle(ExchangeRate.Currency currency) {
+        switch (currency) {
+            case USD:
+                return "Доллар, USD";
+            case EUR:
+                return "Евро, EUR";
+            default:
+                return "?";
         }
-        if(position == 1) {
-            for (int i = 0; banks.size() > i; i++) {
-                Bank bank = banks.get(i);
-                List<ExchangeRate> exchangeRates;
-                exchangeRates = bank.getExchangeRates();
-                if (exchangeRates.get(2).isBest()) {
-                    holder.textViewPriceBuy.setText("" + exchangeRates.get(2).getPrice());
-                    holder.textView3.setText("" + bank.getName());
-                    if(exchangeRates.get(2).getTrend() == ExchangeRate.Trend.UP) {
-                        holder.imageView1.setImageResource(R.mipmap.ic_up);
-                    }else if(exchangeRates.get(2).getTrend() == ExchangeRate.Trend.DOWN){
-                        holder.imageView1.setImageResource(R.mipmap.ic_down);
-                    }
-
-                }
-                if (exchangeRates.get(3).isBest()) {
-                    holder.textViewPriceSell.setText("" + exchangeRates.get(3).getPrice());
-                    holder.textView4.setText("" + bank.getName());
-                    if(exchangeRates.get(3).getTrend() == ExchangeRate.Trend.UP) {
-                        holder.imageView2.setImageResource(R.mipmap.ic_up);
-                    }else if(exchangeRates.get(3).getTrend() == ExchangeRate.Trend.DOWN){
-                        holder.imageView2.setImageResource(R.mipmap.ic_down);
-                    }
-                }
-            }
-        }
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return currencies.length;
     }
 }
