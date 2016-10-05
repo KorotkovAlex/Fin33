@@ -14,29 +14,29 @@ import com.anjlab.fin33.R;
 /**
  * Created by Саня on 22.09.2016.
  */
-public class PriceBuyView extends LinearLayout {
+public class ExchangeRateView extends LinearLayout {
     private TextView textViewPriceBuy;
     private ImageView imageView1;
 
-    public PriceBuyView(Context context) {
+    public ExchangeRateView(Context context) {
         super(context);
-        LayoutInflater.from(context).inflate(R.layout.price_buy_view, this);
+        LayoutInflater.from(context).inflate(R.layout.exchange_rate_view, this);
     }
 
-    public PriceBuyView(Context context, AttributeSet attrs) {
+    public ExchangeRateView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initViews(context, attrs);
     }
 
-    public PriceBuyView(Context context, AttributeSet attrs, int defStyle) {
+    public ExchangeRateView(Context context, AttributeSet attrs, int defStyle) {
         this(context, attrs);
         initViews(context, attrs);
     }
 
     private void initViews(Context context, AttributeSet attrs) {
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
-                R.styleable.PriceBuyView, 0, 0);
-        LayoutInflater.from(context).inflate(R.layout.price_buy_view, this);
+                R.styleable.ExchangeRateView, 0, 0);
+        LayoutInflater.from(context).inflate(R.layout.exchange_rate_view, this);
         textViewPriceBuy = (TextView) this.findViewById(R.id.textViewPriceBuy);
         textViewPriceBuy.setText("Test");
         imageView1 = (ImageView) this.findViewById(R.id.imageView1);
