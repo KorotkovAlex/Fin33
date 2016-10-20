@@ -29,7 +29,9 @@ public class Fin33Parser {
 
 
         //List<ExchangeRate> exchangeRates = new ArrayList<>();
-
+//       Thread downloadThread =  new Thread () { //убрать поток
+//           @Override
+//           public void run() {
                final List<Bank> banks = new ArrayList<>();
                     Elements trs = doc.select("table.otscourses tr");
                     trs.remove(0);
@@ -78,9 +80,9 @@ public class Fin33Parser {
                listener.onParseDone(banks);
             }
 
-
-
-    }
+//        };
+//        downloadThread.start();
+ //   }
     public ExchangeRate createExchangeRateFrom(Element td, ExchangeRate.Kind kind, ExchangeRate.Currency currency, Date docDate, Bank bank){
         ExchangeRate exchangeRate = new ExchangeRate();
         String str=td.text().replaceAll(",","");

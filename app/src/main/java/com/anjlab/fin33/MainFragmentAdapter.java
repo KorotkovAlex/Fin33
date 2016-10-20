@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anjlab.fin33.model.Bank;
@@ -13,7 +12,7 @@ import com.anjlab.fin33.view.ExchangeRateView;
 
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapter.ViewHolder> {
     private ExchangeRate.Currency[] currencies;
     private List<Bank> banks;
     // Provide a reference to the views for each data item
@@ -22,12 +21,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mTextView;
-
+        public TextView textView4;
+        public TextView textView3;
         public ExchangeRateView ervBuy;
         public ExchangeRateView ervSell;
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.currency);
+            textView4 = (TextView) v.findViewById(R.id.textView4);
+            textView3 = (TextView) v.findViewById(R.id.textView3);
             ervBuy =(ExchangeRateView) v.findViewById(R.id.ervBuy);
             ervSell =(ExchangeRateView) v.findViewById(R.id.ervSell);
         }
@@ -36,14 +38,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<Bank> banks, ExchangeRate.Currency[] currencies) {
+    public MainFragmentAdapter(List<Bank> banks, ExchangeRate.Currency[] currencies) {
         this.banks = banks;
         this.currencies = currencies;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,   int viewType) {
+    public MainFragmentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.
                 from(parent.getContext()).
@@ -61,9 +63,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         ExchangeRate.Currency currency = currencies[position];// ExchangeRate.Currency.USD;
         holder.mTextView.setText(getTitle(currency));
+        Bank bank = new Bank();
+
+        //
 
         holder.ervBuy.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.BUY));
+        ExchangeRate exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.BUY);
+        bank = exchange.getBank();
+        holder.textView3.setText(bank.getName());
         holder.ervSell.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL));
+        exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL);
+        bank = exchange.getBank();
+        holder.textView4.setText(bank.getName());
     }
 
     private String getTitle(ExchangeRate.Currency currency) {

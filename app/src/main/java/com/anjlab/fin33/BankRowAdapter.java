@@ -6,45 +6,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.ExchangeRate;
 import com.anjlab.fin33.view.ExchangeRateView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by Саня on 22.09.2016.
  */
-public class AdapterCurrency extends RecyclerView.Adapter<AdapterCurrency.ViewHolder> {
+public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHolder> {
     private final ExchangeRate.Currency currency;
     private List<Bank> banks;
     List<ExchangeRate> exchangeRates;
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public LinearLayout linearLayoutBuy;
-        public LinearLayout linearLayoutSell;
+        public RelativeLayout relativeLayoutBuy;
+        public RelativeLayout relativeLayoutSell;
         public ExchangeRateView ervBuy;
         public ExchangeRateView ervSell;
+        public TextView tvNameBank;
+        public ImageView imageViewBestBuy;
+        public ImageView imageViewBestSell;
         public ViewHolder(View v) {
             super(v);
             ervBuy =(ExchangeRateView) v.findViewById(R.id.ervBuy);
             ervSell =(ExchangeRateView) v.findViewById(R.id.ervSell);
-            linearLayoutBuy = (LinearLayout) v.findViewById(R.id.linearLayoutBuy);
-            linearLayoutSell = (LinearLayout) v.findViewById(R.id.linearLayoutSell);
-            //textViewExchangeRate =(TextView) v.findViewById(R.id.textViewExchangeRate);
+            tvNameBank = (TextView) v.findViewById(R.id.tvNameBank);
+            relativeLayoutBuy = (RelativeLayout) v.findViewById(R.id.relativeLayoutBuy);
+            relativeLayoutSell = (RelativeLayout) v.findViewById(R.id.relativeLayoutSell);
+            imageViewBestBuy = (ImageView) v.findViewById(R.id.imageView2);
+            imageViewBestSell = (ImageView) v.findViewById(R.id.imageView3);
         }
 
 
     }
-    public AdapterCurrency(List<Bank> banks, ExchangeRate.Currency currency) {
+    public BankRowAdapter(List<Bank> banks, ExchangeRate.Currency currency) {
         this.currency = currency;
         this.banks = banks;
+        Bank.findBestRate(banks,currency,ExchangeRate.Kind.SELL);
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,16 +65,25 @@ public class AdapterCurrency extends RecyclerView.Adapter<AdapterCurrency.ViewHo
 
                 ExchangeRate sellRate = bank.getExchangeRates(currency,ExchangeRate.Kind.SELL);
                 ExchangeRate buyRate = bank.getExchangeRates(currency,ExchangeRate.Kind.BUY);
+                holder.tvNameBank.setText(bank.getName());
                 holder.ervBuy.setExchangeRate(buyRate);
                 holder.ervSell.setExchangeRate(sellRate);
-        
-                Log.d("sellRate.isBest()","" + sellRate.isBest());
-                if(sellRate.isBest()){
-                    holder.linearLayoutSell.setBackgroundResource(R.color.colorBest);
-                }
-                if(buyRate.isBest()){
-                    holder.linearLayoutBuy.setBackgroundResource(R.color.colorBest);
-                }
+        ExchangeRate exchangeRate = bank.getExchangeRates(currency,ExchangeRate.Kind.BUY);
+        if(exchangeRate.isBest()){
+            //relative.setBackgroundResource(R.color.colorBest);
+            holder.imageViewBestBuy.setImageResource(R.mipmap.ic_best);
+        } else {
+            //relative.setBackgroundResource(R.color.colorNonBest);
+            holder.imageViewBestBuy.setImageDrawable(null);
+        }
+        exchangeRate = bank.getExchangeRates(currency,ExchangeRate.Kind.SELL);
+        if(exchangeRate.isBest()){
+            //relative.setBackgroundResource(R.color.colorBest);
+            holder.imageViewBestSell.setImageResource(R.mipmap.ic_best);
+        } else {
+            //relative.setBackgroundResource(R.color.colorNonBest);
+            holder.imageViewBestSell.setImageDrawable(null);
+        }
 
     }
     @Override

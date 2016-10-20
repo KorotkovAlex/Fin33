@@ -69,13 +69,24 @@ public class Bank {
         }
         return null;
     }
+    public ExchangeRate getBest(ExchangeRate.Currency currency, ExchangeRate.Kind kind) {
+        for (ExchangeRate exchangeRate : exchangeRates) {
+            if (exchangeRate.getCurrency() == currency
+                    && exchangeRate.getKind() == kind && exchangeRate.isBest()) {
+                return exchangeRate;
+            }
+        }
+        return null;
+    }
 
     public static ExchangeRate findBestRate(
             List<Bank> banks, ExchangeRate.Currency currency, ExchangeRate.Kind kind) {
         for (Bank bank : banks) {
+            //Log.d("Bank = ", ""+ currency );
             ExchangeRate rate = bank.getExchangeRates(currency, kind);
-            Log.d("Bank", "bank: " + bank.getName() + "; currency=" + currency+";kind="+kind+";rate="+rate);
+            //return rate;
             if (rate.isBest()) {
+
                 return rate;
             }
         }

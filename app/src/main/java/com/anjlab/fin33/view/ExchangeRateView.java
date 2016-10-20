@@ -1,14 +1,18 @@
 package com.anjlab.fin33.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anjlab.fin33.R;
+import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.ExchangeRate;
 
 
@@ -18,7 +22,10 @@ import com.anjlab.fin33.model.ExchangeRate;
 public class ExchangeRateView extends LinearLayout {
     private TextView textViewExchangeRate;
     private ImageView imageViewTrend;
+    private ImageView imageViewBest;
     private ExchangeRate exchangeRate;
+    public RelativeLayout relative;
+   // public LinearLayout linearLayoutSell;
 
     public ExchangeRateView(Context context) {
         super(context);
@@ -42,6 +49,10 @@ public class ExchangeRateView extends LinearLayout {
         textViewExchangeRate = (TextView) this.findViewById(R.id.textViewExchangeRate);
         textViewExchangeRate.setText("-0");
         imageViewTrend = (ImageView) this.findViewById(R.id.imageView1);
+        imageViewBest = (ImageView) findViewById(R.id.imageView2);
+        relative = (RelativeLayout) this.findViewById(R.id.relative);
+        //linearLayoutSell = (LinearLayout) this.findViewById(R.id.linearLayoutSell);
+
     }
     public void setExchangeRate(ExchangeRate exchangeRate){
         this.exchangeRate = exchangeRate;
@@ -50,7 +61,10 @@ public class ExchangeRateView extends LinearLayout {
         {
             throw new RuntimeException("exchangeRate ==  null");
         } else {
+            Log.d("ssss",exchangeRate.getPrice().toString());
             textViewExchangeRate.setText(exchangeRate.getPrice().toString());
+            Bank bank = exchangeRate.getBank();
+            bank.getName();
 
             if (exchangeRate.getTrend() == ExchangeRate.Trend.UP) {
                 imageViewTrend.setImageResource(R.mipmap.ic_up);

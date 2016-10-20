@@ -4,7 +4,7 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:layout_marginTop="10dp">
 
 
 
@@ -20,14 +20,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 android:gravity="center_vertical|center_horizontal"
-                android:id="@+id/linearLayoutBuy">
+                android:id="@+id/relativeLayoutBuy">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/imageView2"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true" />
 
                 <com.anjlab.fin33.view.ExchangeRateView
                     android:id="@+id/ervBuy"
@@ -36,17 +44,23 @@
                     android:layout_margin="30dp"
                     />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:id="@+id/linearLayoutSell">
-
+                android:id="@+id/relativeLayoutSell">
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/imageView3"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true" />
                 <com.anjlab.fin33.view.ExchangeRateView
                     android:id="@+id/ervSell"
                     android:layout_width="fill_parent"
@@ -54,7 +68,7 @@
                     android:layout_margin="30dp"
                     />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -62,10 +76,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Название банка"
-            android:id="@+id/textView4"
+            android:id="@+id/tvNameBank"
             android:gravity="center_vertical|center_horizontal"
-            android:layout_marginTop="2dp"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:layout_marginBottom="6dp" />
 
     </LinearLayout>
 

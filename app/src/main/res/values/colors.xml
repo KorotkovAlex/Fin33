@@ -6,4 +6,5 @@
     <color name="colorDollar">#27ae61</color>
     <color name="colorText">#f1f1f1</color>
     <color name="colorBest">#1565c0</color>
+    <color name="colorNonBest">#cecece</color>
 </resources>

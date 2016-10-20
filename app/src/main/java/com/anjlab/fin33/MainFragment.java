@@ -1,7 +1,6 @@
 package com.anjlab.fin33;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,19 +17,10 @@ import com.anjlab.fin33.model.ParseCompletedListener;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MainFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class MainFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
@@ -61,8 +51,7 @@ public class MainFragment extends Fragment {
                 @Override
                 public void onParseDone(List<Bank> banks) {
                     MainFragment.this.banks = banks;
-
-                    mAdapter = new MyAdapter(banks, new ExchangeRate.Currency[]{
+                    mAdapter = new MainFragmentAdapter(banks, new ExchangeRate.Currency[]{
                             ExchangeRate.Currency.USD, ExchangeRate.Currency.EUR
                     });
                     mRecyclerView.setAdapter(mAdapter);

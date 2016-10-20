@@ -30,10 +30,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragments(new MainFragment(), "Best");
-        viewPagerAdapter.addFragments(new USDFragment(), "USD");
-        viewPagerAdapter.addFragments(new EURFragment(), "EUR");
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
+                MainActivity.this));
         tabLayout.setupWithViewPager(viewPager);
 
 
