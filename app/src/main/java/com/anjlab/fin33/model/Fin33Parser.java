@@ -1,10 +1,5 @@
 package com.anjlab.fin33.model;
 
-import android.util.Log;
-
-import com.anjlab.fin33.model.Bank;
-import com.anjlab.fin33.model.ExchangeRate;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,7 +20,7 @@ import java.util.List;
  */
 public class Fin33Parser {
 
-    public void parseMainInfo(final Document doc, final ParseCompletedListener listener) throws ParseException {
+    public void parseMainInfo(final Document doc, final BanksUpdatedListener listener) throws ParseException {
 
 
         //List<ExchangeRate> exchangeRates = new ArrayList<>();

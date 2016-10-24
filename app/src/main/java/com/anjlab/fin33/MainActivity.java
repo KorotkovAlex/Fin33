@@ -9,15 +9,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.anjlab.fin33.model.ViewPagerAdapter;
+
+import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
-
+    LinearLayout llB;
     ViewPagerAdapter viewPagerAdapter;//view1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         //toolbar.setTitleTextColor();
       // setSupportActionBar(toolbar);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        llB =(LinearLayout) findViewById(R.id.llB);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -35,6 +40,22 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this));
         tabLayout.setupWithViewPager(viewPager);
 
+        llB = (LinearLayout) findViewById(R.id.llB);
+        llB.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+                MyTask mt = null;
+                try {
+                    mt = new MyTask(getAssets().open("fin33_16_09_2016.html"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mt.execute();
+
+            }
+        });
 
     }
+
 }

@@ -47,7 +47,7 @@ public class ExchangeRateView extends LinearLayout {
                 R.styleable.ExchangeRateView, 0, 0);
         LayoutInflater.from(context).inflate(R.layout.exchange_rate_view, this);
         textViewExchangeRate = (TextView) this.findViewById(R.id.textViewExchangeRate);
-        textViewExchangeRate.setText("-0");
+        textViewExchangeRate.setText("Данные отсутствуют");
         imageViewTrend = (ImageView) this.findViewById(R.id.imageView1);
         imageViewBest = (ImageView) findViewById(R.id.imageView2);
         relative = (RelativeLayout) this.findViewById(R.id.relative);
@@ -59,7 +59,8 @@ public class ExchangeRateView extends LinearLayout {
 
         if (exchangeRate ==  null)
         {
-            throw new RuntimeException("exchangeRate ==  null");
+            //throw new RuntimeException("exchangeRate ==  null");
+            textViewExchangeRate.setText("Данные отсутствуют");
         } else {
             Log.d("ssss",exchangeRate.getPrice().toString());
             textViewExchangeRate.setText(exchangeRate.getPrice().toString());

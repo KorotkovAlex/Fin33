@@ -1,23 +1,28 @@
 package com.anjlab.fin33.model;
 
+import android.support.annotation.NonNull;
+
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by Саня on 05.10.2016.
  */
 public class SaveBanks {
-    public void getBanks(final Document doc, final ParseCompletedListener listener) throws ParseException {
+
+    List<Bank> banks;
+    public void getBanks(final BanksUpdatedListener listener) throws ParseException {
 
 
         final List<Bank> banks = new ArrayList<>();

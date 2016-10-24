@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,8 +32,10 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
         public TextView tvNameBank;
         public ImageView imageViewBestBuy;
         public ImageView imageViewBestSell;
+        public LinearLayout linearLayout;
         public ViewHolder(View v) {
             super(v);
+
             ervBuy =(ExchangeRateView) v.findViewById(R.id.ervBuy);
             ervSell =(ExchangeRateView) v.findViewById(R.id.ervSell);
             tvNameBank = (TextView) v.findViewById(R.id.tvNameBank);

@@ -69,12 +69,14 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
 
         holder.ervBuy.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.BUY));
         ExchangeRate exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.BUY);
-        bank = exchange.getBank();
-        holder.textView3.setText(bank.getName());
-        holder.ervSell.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL));
-        exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL);
-        bank = exchange.getBank();
-        holder.textView4.setText(bank.getName());
+        if (exchange !=  null) {
+            bank = exchange.getBank();
+            holder.textView3.setText(bank.getName());
+            holder.ervSell.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL));
+            exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL);
+            bank = exchange.getBank();
+            holder.textView4.setText(bank.getName());
+        }
     }
 
     private String getTitle(ExchangeRate.Currency currency) {
