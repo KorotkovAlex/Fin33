@@ -28,14 +28,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolBar);
-        //toolbar.setTitleTextColor();
-      // setSupportActionBar(toolbar);
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         llB =(LinearLayout) findViewById(R.id.llB);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(viewPagerAdapter);
+//        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+//        viewPager.setAdapter(viewPagerAdapter);
         viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
                 MainActivity.this));
         tabLayout.setupWithViewPager(viewPager);
@@ -45,12 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                MyTask mt = null;
-                try {
-                    mt = new MyTask(getAssets().open("fin33_16_09_2016.html"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ParseFin33Task mt = new ParseFin33Task(null);
                 mt.execute();
 
             }

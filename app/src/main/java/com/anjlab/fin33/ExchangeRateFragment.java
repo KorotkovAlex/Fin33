@@ -69,13 +69,20 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
             mRecyclerView.setHasFixedSize(true);
             mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
             mRecyclerView.setLayoutManager(mLayoutManager);
-//        MyTask mt = new MyTask();
+//        ParseFin33Task mt = new ParseFin33Task();
 //        mt.execute();
 //
         AppState.getInstance().subscribe(this);
 
         onParseDone(AppState.getInstance().getBanks());
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+
+        AppState.getInstance().unsubscribe(this);
+        super.onDestroyView();
     }
 
     @Override
@@ -88,7 +95,7 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
         }
         mAdapter = new BankRowAdapter(banks, currency);
         mRecyclerView.setAdapter(mAdapter);
-        TextView btnNew = new TextView(getContext());;
+        TextView btnNew = new TextView(getContext());
         if( banks.size() == 0){
             btnNew.setText("Перезагрузите приложение");
             mN.addView(btnNew);

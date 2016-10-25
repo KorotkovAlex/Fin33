@@ -1,5 +1,9 @@
 package com.anjlab.fin33.model;
 
+import android.util.Log;
+
+import com.anjlab.fin33.MainFragment;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +55,7 @@ public class AppState {
     }
     public void subscribe(BanksUpdatedListener listener){
         subscribers.add(listener);
+        Log.d("Count subscribers", "" + subscribers.size());
     }
     public void notifySubscribes(){
         for (BanksUpdatedListener subscriber : subscribers) {
@@ -58,4 +63,7 @@ public class AppState {
         }
     }
 
+    public void unsubscribe(BanksUpdatedListener listener) {
+        subscribers.remove(listener);
+    }
 }

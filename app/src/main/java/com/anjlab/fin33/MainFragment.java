@@ -48,27 +48,16 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                 mRecyclerView.setLayoutManager(mLayoutManager);
-//        MyTask mt = new MyTask();
-//        mt.execute();
-//        try {
-//            doc = Jsoup.parse(getActivity().getAssets().open("fin33_16_09_2016.html"), "windows-1251", "");
-//            new Fin33Parser().parseMainInfo(doc, new BanksUpdatedListener() {
-//                @Override
-//                public void onParseDone(List<Bank> banks) {
-//                    MainFragment.this.banks = banks;
-//                    mAdapter = new MainFragmentAdapter(AppState.getInstance().getBanks(), new ExchangeRate.Currency[]{
-//                            ExchangeRate.Currency.USD, ExchangeRate.Currency.EUR
-//                    });
-//                    mRecyclerView.setAdapter(mAdapter);
-//                }
-//            });
-//        } catch (Exception e) {
-//           throw new RuntimeException("Error", e);
-//        }
-
         AppState.getInstance().subscribe(this);
         onParseDone(AppState.getInstance().getBanks());
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+
+        AppState.getInstance().unsubscribe(this);
+        super.onDestroyView();
     }
 
     @Override
@@ -81,7 +70,7 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-//    class MyTask extends AsyncTask<Void, Void, Void> {
+//    class ParseFin33Task extends AsyncTask<Void, Void, Void> {
 //        @Override
 //        protected Void doInBackground(Void... params) {
 //            try {

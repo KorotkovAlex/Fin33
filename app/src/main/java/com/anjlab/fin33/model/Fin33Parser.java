@@ -4,10 +4,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
+import java.text.ParseException;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +27,7 @@ public class Fin33Parser {
 //       Thread downloadThread =  new Thread () { //убрать поток
 //           @Override
 //           public void run() {
+
                final List<Bank> banks = new ArrayList<>();
                     Elements trs = doc.select("table.otscourses tr");
                     trs.remove(0);

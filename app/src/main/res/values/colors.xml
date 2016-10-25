@@ -7,4 +7,5 @@
     <color name="colorText">#f1f1f1</color>
     <color name="colorBest">#1565c0</color>
     <color name="colorNonBest">#cecece</color>
+    <color name="colorSplashScreenBackground">#160d50</color>
 </resources>
