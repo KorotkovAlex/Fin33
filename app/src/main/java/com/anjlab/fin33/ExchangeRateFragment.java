@@ -1,8 +1,11 @@
 package com.anjlab.fin33;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -42,6 +45,7 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
     Document doc;
     Bank bank;
     List<Bank> banks;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     //ExchangeRate exchangeRate = ExchangeRate.Currency.EUR;
     ExchangeRate.Currency currency;
 
@@ -73,8 +77,21 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
 //        mt.execute();
 //
         AppState.getInstance().subscribe(this);
-
+         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         onParseDone(AppState.getInstance().getBanks());
+        mSwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        ParseFin33Task mt = new ParseFin33Task(null);
+                        mt.execute();
+
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+
+                }
+        );
+
         return view;
     }
 
@@ -104,5 +121,9 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
         }
     }
 
+    @Override
+    public void onParseError(Throwable error) {
+        //TODO
 
+    }
 }

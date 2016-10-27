@@ -1,9 +1,12 @@
 package com.anjlab.fin33;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,7 +37,7 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
     Bank bank;
     List<Bank> banks;
     Context context;
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
     public MainFragment() {
         // Required empty public constructor
     }
@@ -48,8 +51,20 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                 mRecyclerView.setLayoutManager(mLayoutManager);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        ParseFin33Task mt = new ParseFin33Task(null);
+                        mt.execute();
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                });
         AppState.getInstance().subscribe(this);
         onParseDone(AppState.getInstance().getBanks());
+
         return view;
     }
 
@@ -70,36 +85,9 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-//    class ParseFin33Task extends AsyncTask<Void, Void, Void> {
-//        @Override
-//        protected Void doInBackground(Void... params) {
-//            try {
-//                doc = Jsoup.parse(getActivity().getAssets().open("fin33_16_09_2016.html"), "windows-1251", "");
-//
-//            } catch (Exception e) {
-//                throw new RuntimeException("Error", e);
-//            }
-//            return null;
-//
-//        }
-//        @Override
-//        protected void onPostExecute(Void result) {
-//            super.onPostExecute(result);
-//            try {
-//                new Fin33Parser().parseMainInfo(doc, new BanksUpdatedListener() {
-//                    @Override
-//                    public void onParseDone(List<Bank> banks) {
-//                        MainFragment.this.banks = banks;
-//                        mAdapter = new MainFragmentAdapter(banks, new ExchangeRate.Currency[]{
-//                                ExchangeRate.Currency.USD, ExchangeRate.Currency.EUR
-//                        });
-//                        mRecyclerView.setAdapter(mAdapter);
-//                    }
-//                });
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//    }
+    @Override
+    public void onParseError(Throwable error) {
+        //TODO
+
+    }
 }

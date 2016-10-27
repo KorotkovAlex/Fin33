@@ -2,11 +2,8 @@ package com.anjlab.fin33.model;
 
 import android.util.Log;
 
-import com.anjlab.fin33.MainFragment;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +44,7 @@ public class AppState {
     public void updateBanks(List<Bank> newBanks){
 
         this.banks = newBanks;
-        notifySubscribes();
+        notifySubscribers();
     }
     public List<Bank> getBanks(){
 
@@ -57,7 +54,7 @@ public class AppState {
         subscribers.add(listener);
         Log.d("Count subscribers", "" + subscribers.size());
     }
-    public void notifySubscribes(){
+    private void notifySubscribers(){
         for (BanksUpdatedListener subscriber : subscribers) {
             subscriber.onParseDone(banks);
         }
@@ -65,5 +62,11 @@ public class AppState {
 
     public void unsubscribe(BanksUpdatedListener listener) {
         subscribers.remove(listener);
+    }
+
+    public void parseError(Throwable error) {
+        for (BanksUpdatedListener subscriber : subscribers) {
+            subscriber.onParseError(error);
+        }
     }
 }

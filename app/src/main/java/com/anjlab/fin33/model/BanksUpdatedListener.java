@@ -7,5 +7,5 @@ import java.util.List;
  */
 public interface BanksUpdatedListener {
     void onParseDone(List<Bank> banks);
-
+    void onParseError(Throwable error);
 }
