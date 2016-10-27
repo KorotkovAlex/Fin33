@@ -6,4 +6,8 @@
     <string name="buy">Покупка</string>
     <string name="sell">Продажа</string>
     <string name="icon_heart">&#xf119;</string>
+    <string name="icon_down">&#xf063;</string>
+    <string name="icon_up">&#xf062;</string>
+    <string name="icon_best">&#xf087;</string>&#xf021;
+    <string name="icon_refresh">&#xf021;</string>
 </resources>

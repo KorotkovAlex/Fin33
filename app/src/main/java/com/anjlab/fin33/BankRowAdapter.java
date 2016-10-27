@@ -1,11 +1,11 @@
 package com.anjlab.fin33;
 
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,19 +30,23 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
         public ExchangeRateView ervBuy;
         public ExchangeRateView ervSell;
         public TextView tvNameBank;
-        public ImageView imageViewBestBuy;
-        public ImageView imageViewBestSell;
+        public TextView textViewBestBuy;
+        public TextView textViewBestSell;
         public LinearLayout linearLayout;
+        public static int color ;
         public ViewHolder(View v) {
             super(v);
-
+            color =  v.getResources().getColor(R.color.colorUp);
             ervBuy =(ExchangeRateView) v.findViewById(R.id.ervBuy);
             ervSell =(ExchangeRateView) v.findViewById(R.id.ervSell);
             tvNameBank = (TextView) v.findViewById(R.id.tvNameBank);
             relativeLayoutBuy = (RelativeLayout) v.findViewById(R.id.relativeLayoutBuy);
             relativeLayoutSell = (RelativeLayout) v.findViewById(R.id.relativeLayoutSell);
-            imageViewBestBuy = (ImageView) v.findViewById(R.id.imageView2);
-            imageViewBestSell = (ImageView) v.findViewById(R.id.imageView3);
+            textViewBestBuy = (TextView) v.findViewById(R.id.textViewBestBuy);
+            textViewBestSell = (TextView) v.findViewById(R.id.textViewBestSell);
+            Typeface font = Typeface.createFromAsset(v.getContext().getAssets(), "fontawesome-webfont.ttf" );
+            textViewBestBuy.setTypeface(font);
+            textViewBestSell.setTypeface(font);
         }
 
 
@@ -74,18 +78,20 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
         ExchangeRate exchangeRate = bank.getExchangeRates(currency,ExchangeRate.Kind.BUY);
         if(exchangeRate.isBest()){
             //relative.setBackgroundResource(R.color.colorBest);
-            holder.imageViewBestBuy.setImageResource(R.mipmap.ic_best);
+            holder.textViewBestBuy.setText(R.string.icon_best);
+            holder.textViewBestBuy.setTextColor(ViewHolder.color);
         } else {
             //relative.setBackgroundResource(R.color.colorNonBest);
-            holder.imageViewBestBuy.setImageDrawable(null);
+            holder.textViewBestBuy.setText(null);
         }
         exchangeRate = bank.getExchangeRates(currency,ExchangeRate.Kind.SELL);
         if(exchangeRate.isBest()){
             //relative.setBackgroundResource(R.color.colorBest);
-            holder.imageViewBestSell.setImageResource(R.mipmap.ic_best);
+            holder.textViewBestSell.setText(R.string.icon_best);
+            holder.textViewBestSell.setTextColor(ViewHolder.color);
         } else {
             //relative.setBackgroundResource(R.color.colorNonBest);
-            holder.imageViewBestSell.setImageDrawable(null);
+            holder.textViewBestSell.setText(null);
         }
 
     }

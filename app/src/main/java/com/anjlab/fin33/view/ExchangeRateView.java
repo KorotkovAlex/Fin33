@@ -3,6 +3,7 @@ package com.anjlab.fin33.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,8 +22,8 @@ import com.anjlab.fin33.model.ExchangeRate;
  */
 public class ExchangeRateView extends LinearLayout {
     private TextView textViewExchangeRate;
-    private ImageView imageViewTrend;
-    private ImageView imageViewBest;
+    private TextView textViewBest;
+    private TextView textViewDA;
     private ExchangeRate exchangeRate;
     public RelativeLayout relative;
    // public LinearLayout linearLayoutSell;
@@ -48,13 +49,16 @@ public class ExchangeRateView extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.exchange_rate_view, this);
         textViewExchangeRate = (TextView) this.findViewById(R.id.textViewExchangeRate);
         textViewExchangeRate.setText("Данные отсутствуют");
-        imageViewTrend = (ImageView) this.findViewById(R.id.imageView1);
-        imageViewBest = (ImageView) findViewById(R.id.imageView2);
+        textViewDA = (TextView) this.findViewById(R.id.textViewDA);
+        //imageViewBest = (ImageView) findViewById(R.id.imageView2);
         relative = (RelativeLayout) this.findViewById(R.id.relative);
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fontawesome-webfont.ttf" );
+        textViewDA.setTypeface(font);
         //linearLayoutSell = (LinearLayout) this.findViewById(R.id.linearLayoutSell);
 
     }
     public void setExchangeRate(ExchangeRate exchangeRate){
+
         this.exchangeRate = exchangeRate;
 
         if (exchangeRate ==  null)
@@ -68,12 +72,15 @@ public class ExchangeRateView extends LinearLayout {
             bank.getName();
 
             if (exchangeRate.getTrend() == ExchangeRate.Trend.UP) {
-                imageViewTrend.setImageResource(R.mipmap.ic_up);
+                textViewDA.setText(R.string.icon_up);
+                textViewDA.setTextColor(getResources().getColor(R.color.colorUp));
             } else if (exchangeRate.getTrend() == ExchangeRate.Trend.DOWN) {
-                imageViewTrend.setImageResource(R.mipmap.ic_down);
+                textViewDA.setText(R.string.icon_down);
+                textViewDA.setTextColor(getResources().getColor(R.color.colorDown));
+
             } else {
                 //  TODO test
-                imageViewTrend.setImageBitmap(null);
+                textViewDA.setText(null);
             }
         }
     }
