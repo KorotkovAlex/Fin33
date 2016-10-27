@@ -1,14 +1,13 @@
 package com.anjlab.fin33;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -18,11 +17,10 @@ import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.BanksUpdatedListener;
 
-import java.io.IOException;
 import java.util.List;
 
 public class SplashScreenActivity extends AppCompatActivity implements BanksUpdatedListener {
-    ImageView imageView;
+    TextView textViewSS;
     TextView textView6;
 
     @Override
@@ -30,10 +28,14 @@ public class SplashScreenActivity extends AppCompatActivity implements BanksUpda
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_splash_screen);
-        imageView = (ImageView)findViewById(R.id.imageViewSS);
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+        textViewSS = (TextView) findViewById(R.id.textViewSS);
+        textViewSS.setTypeface(font);
+
+        textViewSS.setText(R.string.icon_refresh);
         textView6 = (TextView) findViewById(R.id.textView6);
         final Animation animationRotateCenter = AnimationUtils.loadAnimation(this, R.anim.rotate);
-        imageView.startAnimation(animationRotateCenter);
+        textViewSS.startAnimation(animationRotateCenter);
         AppState.getInstance().subscribe(this);
 //        if(AppState.getInstance().getBanks().isEmpty()) {
 //                try {
