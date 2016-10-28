@@ -26,6 +26,7 @@ public class ExchangeRateView extends LinearLayout {
     private TextView textViewDA;
     private ExchangeRate exchangeRate;
     public RelativeLayout relative;
+    private TextView textViewDate;
    // public LinearLayout linearLayoutSell;
 
     public ExchangeRateView(Context context) {

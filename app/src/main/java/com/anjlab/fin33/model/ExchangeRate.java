@@ -16,7 +16,7 @@ public class ExchangeRate {
     private Currency currency;
     private Trend trend;
     private boolean best;
-    private Date date;
+    private String date;
     private Bank bank;
 
     public void setKind(Kind kind) {
@@ -59,11 +59,11 @@ public class ExchangeRate {
         return best;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 

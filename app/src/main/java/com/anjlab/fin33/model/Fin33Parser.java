@@ -34,7 +34,7 @@ public class Fin33Parser {
                     trs.remove(0);
                     for (Element tr : trs) {
                         Bank bank = new Bank();
-                        Date docDate = null;
+                        String docDateString = null;
                         Elements tds = tr.getElementsByTag("td");
                         Element td = tds.get(0); // Получаем первый td  и все его дочерние эллементы
                         Element a = td.select("a").first();// Получаем ссылку банка
@@ -43,32 +43,33 @@ public class Fin33Parser {
                         Element sup = td.select("sup").first();
                         if (sup.children().size() == 1) {
                             String dateStr = sup.child(0).text();
-                            SimpleDateFormat format = new SimpleDateFormat();
-                            format.applyPattern("dd.MM.yyyy");
+                            //SimpleDateFormat format = new SimpleDateFormat();
+                            //format.applyPattern("dd.MM.yyyy");
 
-                            try {
-                                docDate = format.parse(dateStr);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
+                            //try {
+                                docDateString = dateStr;
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
 
                         } else if (sup.children().size() == 2) {
+                            String toDay = sup.child(0).text();
                             String timeStr = sup.child(1).text();
                             SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
                             Calendar calendar = new GregorianCalendar();
                             int yyyy = calendar.get(Calendar.YEAR);
                             int dd = calendar.get(Calendar.DAY_OF_MONTH);
                             int mm = calendar.get(Calendar.MONTH )+1;
-                            try {
-                                docDate = format.parse(dd + "." + mm + "." + yyyy + " "  + timeStr);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
+//                            try {
+                                docDateString = toDay + " " + timeStr;
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
                         }
-                        bank.addExchangeRate(createExchangeRateFrom(tds.get(1), ExchangeRate.Kind.BUY, ExchangeRate.Currency.USD, docDate, bank));
-                        bank.addExchangeRate(createExchangeRateFrom(tds.get(2), ExchangeRate.Kind.SELL, ExchangeRate.Currency.USD, docDate, bank));
-                        bank.addExchangeRate(createExchangeRateFrom(tds.get(3), ExchangeRate.Kind.BUY, ExchangeRate.Currency.EUR, docDate, bank));
-                        bank.addExchangeRate(createExchangeRateFrom(tds.get(4), ExchangeRate.Kind.SELL, ExchangeRate.Currency.EUR, docDate, bank));
+                        bank.addExchangeRate(createExchangeRateFrom(tds.get(1), ExchangeRate.Kind.BUY, ExchangeRate.Currency.USD, docDateString, bank));
+                        bank.addExchangeRate(createExchangeRateFrom(tds.get(2), ExchangeRate.Kind.SELL, ExchangeRate.Currency.USD, docDateString, bank));
+                        bank.addExchangeRate(createExchangeRateFrom(tds.get(3), ExchangeRate.Kind.BUY, ExchangeRate.Currency.EUR, docDateString, bank));
+                        bank.addExchangeRate(createExchangeRateFrom(tds.get(4), ExchangeRate.Kind.SELL, ExchangeRate.Currency.EUR, docDateString, bank));
                         banks.add(bank);
 
                     }
@@ -79,7 +80,7 @@ public class Fin33Parser {
 //        };
 //        downloadThread.start();
  //   }
-    public ExchangeRate createExchangeRateFrom(Element td, ExchangeRate.Kind kind, ExchangeRate.Currency currency, Date docDate, Bank bank){
+    public ExchangeRate createExchangeRateFrom(Element td, ExchangeRate.Kind kind, ExchangeRate.Currency currency, String docDate, Bank bank){
         ExchangeRate exchangeRate = new ExchangeRate();
         String str=td.text().replaceAll(",","");
         BigDecimal bd=new BigDecimal(str);

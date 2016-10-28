@@ -23,6 +23,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -59,7 +63,12 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
                     public void onRefresh() {
                         ParseFin33Task mt = new ParseFin33Task(null);
                         mt.execute();
-                        mSwipeRefreshLayout.setRefreshing(false);
+
+//                        Date date = new Date();
+//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+//                        System.out.println(sdf.format(date));
+
+
                     }
                 });
         AppState.getInstance().subscribe(this);
@@ -83,6 +92,7 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
                 ExchangeRate.Currency.USD, ExchangeRate.Currency.EUR
         });
         mRecyclerView.setAdapter(mAdapter);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

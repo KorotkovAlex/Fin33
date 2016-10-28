@@ -32,10 +32,12 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
         public TextView tvNameBank;
         public TextView textViewBestBuy;
         public TextView textViewBestSell;
+        public TextView textViewDate;
         public LinearLayout linearLayout;
         public static int color ;
         public ViewHolder(View v) {
             super(v);
+
             color =  v.getResources().getColor(R.color.colorUp);
             ervBuy =(ExchangeRateView) v.findViewById(R.id.ervBuy);
             ervSell =(ExchangeRateView) v.findViewById(R.id.ervSell);
@@ -44,9 +46,13 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
             relativeLayoutSell = (RelativeLayout) v.findViewById(R.id.relativeLayoutSell);
             textViewBestBuy = (TextView) v.findViewById(R.id.textViewBestBuy);
             textViewBestSell = (TextView) v.findViewById(R.id.textViewBestSell);
+            //textViewBestSell = (TextView) v.findViewById(R.id.textView);
+
             Typeface font = Typeface.createFromAsset(v.getContext().getAssets(), "fontawesome-webfont.ttf" );
+
             textViewBestBuy.setTypeface(font);
             textViewBestSell.setTypeface(font);
+            textViewDate = (TextView) v.findViewById(R.id.textViewDate);
         }
 
 
@@ -67,12 +73,20 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
                 Bank bank = banks.get(position);
+                List<ExchangeRate> exchangeRates = bank.getExchangeRates();
+        ExchangeRate exchangeRateDate = exchangeRates.get(0);
                 Log.d("position","" + position);
                 Log.d("banks.get(position)","" + bank.getName());
 
                 ExchangeRate sellRate = bank.getExchangeRates(currency,ExchangeRate.Kind.SELL);
                 ExchangeRate buyRate = bank.getExchangeRates(currency,ExchangeRate.Kind.BUY);
                 holder.tvNameBank.setText(bank.getName());
+        if(exchangeRateDate.getDate() == null) {
+            holder.textViewDate.setText("");
+        }
+        {
+            holder.textViewDate.setText("" + exchangeRateDate.getDate());
+        }
                 holder.ervBuy.setExchangeRate(buyRate);
                 holder.ervSell.setExchangeRate(sellRate);
         ExchangeRate exchangeRate = bank.getExchangeRates(currency,ExchangeRate.Kind.BUY);

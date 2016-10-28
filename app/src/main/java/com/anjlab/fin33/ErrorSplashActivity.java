@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,7 +24,9 @@ public class ErrorSplashActivity extends AppCompatActivity implements BanksUpdat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_error_splash);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
         TextView textView = (TextView) findViewById( R.id.textViewES);
         textView.setTypeface(font);

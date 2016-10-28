@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:gravity="top"
-        android:background="#eaeaea">
+        android:background="#e7e7e7">
 
         <android.support.design.widget.TabLayout
             android:layout_width="match_parent"

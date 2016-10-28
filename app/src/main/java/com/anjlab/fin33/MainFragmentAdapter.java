@@ -23,6 +23,8 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
         public TextView mTextView;
         public TextView textView4;
         public TextView textView3;
+        private TextView textViewDateBuy;
+        private TextView textViewDateSell;
         public ExchangeRateView ervBuy;
         public ExchangeRateView ervSell;
         public ViewHolder(View v) {
@@ -30,6 +32,8 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
             mTextView = (TextView) v.findViewById(R.id.currency);
             textView4 = (TextView) v.findViewById(R.id.textView4);
             textView3 = (TextView) v.findViewById(R.id.textView3);
+            textViewDateBuy = (TextView) v.findViewById(R.id.textViewDateBuy);
+            textViewDateSell = (TextView) v.findViewById(R.id.textViewDateSell);
             ervBuy =(ExchangeRateView) v.findViewById(R.id.ervBuy);
             ervSell =(ExchangeRateView) v.findViewById(R.id.ervSell);
         }
@@ -71,9 +75,12 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
         ExchangeRate exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.BUY);
         if (exchange !=  null) {
             bank = exchange.getBank();
+            holder.textViewDateBuy.setText("" + exchange.getDate());
             holder.textView3.setText(bank.getName());
+
             holder.ervSell.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL));
             exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL);
+            holder.textViewDateSell.setText("" + exchange.getDate());
             bank = exchange.getBank();
             holder.textView4.setText(bank.getName());
         }
@@ -82,9 +89,9 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
     private String getTitle(ExchangeRate.Currency currency) {
         switch (currency) {
             case USD:
-                return "Доллар, USD";
+                return "USD, лучший курс ";
             case EUR:
-                return "Евро, EUR";
+                return "EUR, лучший курс ";
             default:
                 return "?";
         }
