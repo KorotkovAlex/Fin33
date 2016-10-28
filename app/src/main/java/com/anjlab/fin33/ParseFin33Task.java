@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.BanksUpdatedListener;
+import com.anjlab.fin33.model.ExchangeRate;
 import com.anjlab.fin33.model.Fin33Parser;
 
 import org.jsoup.Jsoup;
@@ -22,7 +23,7 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
     private List<Bank> banks;
     String url = "http://www.fin33.ru/";
     private Throwable error;
-
+    private boolean demo;
     public ParseFin33Task(InputStream input) {
         this.input = input;
     }
@@ -44,9 +45,10 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
             }
             //
 
-            new Fin33Parser().parseMainInfo(input,doc, new BanksUpdatedListener() {
+            new Fin33Parser().parseMainInfo(doc, new BanksUpdatedListener() {
                 @Override
                 public void onParseDone(List<Bank> banks) {
+
                     ParseFin33Task.this.banks = banks;
                 }
 
@@ -67,8 +69,19 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
             AppState.getInstance().parseError(error);
         }
         else if (banks != null) {
+            for (Bank bank : banks) {
+                for (ExchangeRate exchangeRate : bank.getExchangeRates()) {
+                    exchangeRate.setDemo(demo);
+                }
+            }
             AppState.getInstance().updateBanks(banks);
         }
     }
 
+    public void setDemo(boolean demo) {
+        this.demo = demo;
+    }
+    public boolean getDemo(){
+        return demo;
+    }
 }
