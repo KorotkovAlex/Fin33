@@ -4,6 +4,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.io.InputStream;
 import java.text.ParseException;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -20,7 +22,7 @@ import java.util.List;
  */
 public class Fin33Parser {
 
-    public void parseMainInfo(final Document doc, final BanksUpdatedListener listener) throws ParseException {
+    public void parseMainInfo(InputStream input, final Document doc, final BanksUpdatedListener listener) throws ParseException {
 
 
         //List<ExchangeRate> exchangeRates = new ArrayList<>();
@@ -41,30 +43,34 @@ public class Fin33Parser {
                         a.attr("href");
                         bank.setName(a.text()); // Запоминаем  имя банка
                         Element sup = td.select("sup").first();
-                        if (sup.children().size() == 1) {
-                            String dateStr = sup.child(0).text();
-                            //SimpleDateFormat format = new SimpleDateFormat();
-                            //format.applyPattern("dd.MM.yyyy");
+                        if(input == null) {
+                            if (sup.children().size() == 1) {
+                                String dateStr = sup.child(0).text();
+                                //SimpleDateFormat format = new SimpleDateFormat();
+                                //format.applyPattern("dd.MM.yyyy");
 
-                            //try {
+                                //try {
                                 docDateString = dateStr;
 //                            } catch (ParseException e) {
 //                                e.printStackTrace();
 //                            }
 
-                        } else if (sup.children().size() == 2) {
-                            String toDay = sup.child(0).text();
-                            String timeStr = sup.child(1).text();
-                            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-                            Calendar calendar = new GregorianCalendar();
-                            int yyyy = calendar.get(Calendar.YEAR);
-                            int dd = calendar.get(Calendar.DAY_OF_MONTH);
-                            int mm = calendar.get(Calendar.MONTH )+1;
+                            } else if (sup.children().size() == 2) {
+                                String toDay = sup.child(0).text();
+                                String timeStr = sup.child(1).text();
+                                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+                                Calendar calendar = new GregorianCalendar();
+                                int yyyy = calendar.get(Calendar.YEAR);
+                                int dd = calendar.get(Calendar.DAY_OF_MONTH);
+                                int mm = calendar.get(Calendar.MONTH) + 1;
 //                            try {
                                 docDateString = toDay + " " + timeStr;
 //                            } catch (ParseException e) {
 //                                e.printStackTrace();
 //                            }
+                            }
+                        } else {
+                            docDateString = "Demo mode";
                         }
                         bank.addExchangeRate(createExchangeRateFrom(tds.get(1), ExchangeRate.Kind.BUY, ExchangeRate.Currency.USD, docDateString, bank));
                         bank.addExchangeRate(createExchangeRateFrom(tds.get(2), ExchangeRate.Kind.SELL, ExchangeRate.Currency.USD, docDateString, bank));

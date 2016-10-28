@@ -26,7 +26,6 @@ public class ErrorSplashActivity extends AppCompatActivity implements BanksUpdat
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_error_splash);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
         TextView textView = (TextView) findViewById( R.id.textViewES);
         textView.setTypeface(font);

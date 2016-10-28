@@ -44,7 +44,7 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
             }
             //
 
-            new Fin33Parser().parseMainInfo(doc, new BanksUpdatedListener() {
+            new Fin33Parser().parseMainInfo(input,doc, new BanksUpdatedListener() {
                 @Override
                 public void onParseDone(List<Bank> banks) {
                     ParseFin33Task.this.banks = banks;
