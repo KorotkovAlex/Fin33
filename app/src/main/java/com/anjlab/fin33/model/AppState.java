@@ -15,16 +15,7 @@ public class AppState {
     private List<Bank> banks = new ArrayList<>();
     private List<BanksUpdatedListener> subscribers = new ArrayList<>();
 
-    /* Static 'instance' method */
-    public AppState(){
-//        Bank bank = new Bank();
-//        bank.setName("Name Bank");
-//        bank.addExchangeRate(createExchangeRateFrom(ExchangeRate.Kind.BUY, ExchangeRate.Currency.USD, bank));
-//        bank.addExchangeRate(createExchangeRateFrom(ExchangeRate.Kind.SELL, ExchangeRate.Currency.USD, bank));
-//        bank.addExchangeRate(createExchangeRateFrom(ExchangeRate.Kind.BUY, ExchangeRate.Currency.EUR, bank));
-//        bank.addExchangeRate(createExchangeRateFrom(ExchangeRate.Kind.SELL, ExchangeRate.Currency.EUR, bank));
-//        banks.add(bank);
-    }
+    public AppState(){}
     public ExchangeRate createExchangeRateFrom(ExchangeRate.Kind kind, ExchangeRate.Currency currency,Bank bank){
         ExchangeRate exchangeRate = new ExchangeRate();
         String str= "77.0000";

@@ -23,7 +23,6 @@ import java.util.List;
 public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHolder> {
     private final ExchangeRate.Currency currency;
     private List<Bank> banks;
-    List<ExchangeRate> exchangeRates;
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public RelativeLayout relativeLayoutBuy;
@@ -34,11 +33,10 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
         public TextView textViewBestBuy;
         public TextView textViewBestSell;
         public TextView textViewDate;
-        public LinearLayout linearLayout;
         public static int color ;
+
         public ViewHolder(View v) {
             super(v);
-
             color =  v.getResources().getColor(R.color.colorUp);
             ervBuy =(ExchangeRateView) v.findViewById(R.id.ervBuy);
             ervSell =(ExchangeRateView) v.findViewById(R.id.ervSell);
@@ -47,10 +45,7 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
             relativeLayoutSell = (RelativeLayout) v.findViewById(R.id.relativeLayoutSell);
             textViewBestBuy = (TextView) v.findViewById(R.id.textViewBestBuy);
             textViewBestSell = (TextView) v.findViewById(R.id.textViewBestSell);
-            //textViewBestSell = (TextView) v.findViewById(R.id.textView);
-
             Typeface font = Typeface.createFromAsset(v.getContext().getAssets(), "fontawesome-webfont.ttf" );
-
             textViewBestBuy.setTypeface(font);
             textViewBestSell.setTypeface(font);
             textViewDate = (TextView) v.findViewById(R.id.textViewDate);
@@ -78,7 +73,6 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
         ExchangeRate exchangeRateDate = exchangeRates.get(0);
                 Log.d("position","" + position);
                 Log.d("banks.get(position)","" + bank.getName());
-
                 ExchangeRate sellRate = bank.getExchangeRates(currency,ExchangeRate.Kind.SELL);
                 ExchangeRate buyRate = bank.getExchangeRates(currency,ExchangeRate.Kind.BUY);
                 holder.tvNameBank.setText(bank.getName());
@@ -93,20 +87,16 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
                 holder.ervSell.setExchangeRate(sellRate);
         ExchangeRate exchangeRate = bank.getExchangeRates(currency,ExchangeRate.Kind.BUY);
         if(exchangeRate.isBest()){
-            //relative.setBackgroundResource(R.color.colorBest);
             holder.textViewBestBuy.setText(R.string.icon_best);
             holder.textViewBestBuy.setTextColor(ViewHolder.color);
         } else {
-            //relative.setBackgroundResource(R.color.colorNonBest);
             holder.textViewBestBuy.setText(null);
         }
         exchangeRate = bank.getExchangeRates(currency,ExchangeRate.Kind.SELL);
         if(exchangeRate.isBest()){
-            //relative.setBackgroundResource(R.color.colorBest);
             holder.textViewBestSell.setText(R.string.icon_best);
             holder.textViewBestSell.setTextColor(ViewHolder.color);
         } else {
-            //relative.setBackgroundResource(R.color.colorNonBest);
             holder.textViewBestSell.setText(null);
         }
 

@@ -68,30 +68,28 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
         View view = inflater.inflate(R.layout.fragment_exchange_rate, container, false);
         mN = (LinearLayout) view.findViewById(R.id.messageNull);
         this.currency = (ExchangeRate.Currency) getArguments().getSerializable("currency");
-            mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
 
-            mRecyclerView.setHasFixedSize(true);
-            mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-            mRecyclerView.setLayoutManager(mLayoutManager);
-//        ParseFin33Task mt = new ParseFin33Task();
-//        mt.execute();
-//
-        AppState.getInstance().subscribe(this);
-         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        onParseDone(AppState.getInstance().getBanks());
-        mSwipeRefreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        ParseFin33Task mt = new ParseFin33Task(null);
-                        mt.execute();
+        if(!mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setOnRefreshListener(
+                    new SwipeRefreshLayout.OnRefreshListener() {
+                        @Override
+                        public void onRefresh() {
+                            ParseFin33Task mt = new ParseFin33Task(null);
+                            mt.execute();
 
-                        mSwipeRefreshLayout.setRefreshing(false);
+
+                        }
+
                     }
-
-                }
-        );
-
+            );
+        }
+        AppState.getInstance().subscribe(this);
+        onParseDone(AppState.getInstance().getBanks());
         return view;
     }
 
@@ -119,6 +117,7 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
         } else {
             btnNew.setText("");
         }
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

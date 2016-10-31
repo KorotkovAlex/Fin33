@@ -56,21 +56,16 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                 mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-
-        mSwipeRefreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        ParseFin33Task mt = new ParseFin33Task(null);
-                        mt.execute();
-
-//                        Date date = new Date();
-//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-//                        System.out.println(sdf.format(date));
-
-
-                    }
-                });
+        if(!mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setOnRefreshListener(
+                    new SwipeRefreshLayout.OnRefreshListener() {
+                        @Override
+                        public void onRefresh() {
+                            ParseFin33Task mt = new ParseFin33Task(null);
+                            mt.execute();
+                        }
+                    });
+        }
         AppState.getInstance().subscribe(this);
         onParseDone(AppState.getInstance().getBanks());
 

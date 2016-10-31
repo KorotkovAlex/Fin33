@@ -109,7 +109,6 @@ public class ExchangeRate {
         if (isDemo()) {
             builder.append(", демо");
         }
-
         return builder.toString();
     }
 
@@ -136,15 +135,3 @@ public class ExchangeRate {
                 '}';
     }
 }
-//
-//10-03 16:01:17.209 17226-17226/com.anjlab.fin33 D/Bank: banks:
-//        [Bank{name='ЗАО Банк "Советский"',
-//        exchangeRates=[ExchangeRate{kind=BUY, price=64.9500, currency=USD, trend=UP, best=false,
-//        date=Mon Oct 03 11:32:00 GMT+03:00 2016, bank=ЗАО Банк "Советский"},
-//        ExchangeRate{kind=SELL, price=65.5500, currency=USD, trend=UP, best=false,
-//        date=Mon Oct 03 11:32:00 GMT+03:00 2016, bank=ЗАО Банк "Советский"},
-//        ExchangeRate{kind=BUY, price=72.9600, currency=EUR, trend=UP, best=false, date=Mon Oct 03 11:32:00 GMT+03:00 2016,
-//        bank=ЗАО Банк "Советский"}, ExchangeRate{kind=SELL, price=73.6100, currency=EUR, trend=UP, best=false,
-//        date=Mon Oct 03 11:32:00 GMT+03:00 2016, bank=ЗАО Банк "Советский"}]},
-//
-//        Bank{name='ПАО "Межтопэнергобанк"', exchangeRates=[ExchangeRate{kind=BUY, price=65.0500, currency=USD, trend=UP, best=true, date=Mon Oct 03 13:12:00 GMT+03:00 2016, bank=ПАО "Межтопэнергобанк"}, ExchangeRate{kind=SELL, price=65.6000, currency=USD, trend=UP, best=false, date=Mon Oct 03 13:12:00 GMT+03:00 2016, bank=ПАО "Межтопэнергобанк"}, ExchangeRate{kind=BUY, price=73.0000, currency=EUR, trend=NONE, best=true, date=Mon Oct 03 13:12:00 GMT+03:00 2016, bank=ПАО "Межтопэнергобанк"}, ExchangeRate{kind=SELL, price=73.4000, currency=EUR, trend=NONE, best=true, date=Mon Oct 03 13:12:00 GMT+03:00 2016, bank=ПАО "Межтопэнергобанк"}]}, Bank{name='ПАО АКБ "Связь-Банк"', exchangeRates=[ExchangeRate{kind=BUY, price=63.8000, currency=USD, trend=UP, best=false, date=Mon Oct 03 09:23:00 GMT+03:00 2016, bank=ПАО АКБ "Связь-Банк"}, ExchangeRate{kind=SELL, price=65.8500, currency=USD, trend=DOWN, best=false, date=Mon Oct 03 09:23:00 GMT+03:00 2016, bank=ПАО АКБ "Связь-Банк"}, ExchangeRate{kind=BUY, price=71.8500, currency=EUR, trend=UP, best=false, date=Mon Oct 03 09:23:00 GMT+03:00 2016, bank=ПАО АКБ "Связь-Банк"}, ExchangeRate{kind=SELL, price=73.9500, currency=EUR, trend=DOWN, best=false, date=Mon Oct 03 09:23:00 GMT+03:00 2016, bank=ПАО АКБ "Связь-Банк"}]}, Bank{name='ЗАО "Банк ФИНАМ"', exchangeRates=[ExchangeRate{kind=BUY, price=65.0000, currency=USD, trend=UP, best=false, date=Mon Oct 03 12:58:00 GMT+03:00 2016, bank=ЗАО "Банк ФИНАМ"}, ExchangeRate{kind=SELL, price=65.5000, currency=USD, trend=NONE, best=false, date=Mon Oct 03 12:58:00 GMT+03:00 2016, bank=ЗАО "Банк ФИНАМ"}, ExchangeRate{kind=BUY, price=72.9000, currency=EUR, trend=NONE, best=false, date=Mon Oct 03 12:58:00 GMT+03:00 2016, bank=ЗАО "Банк ФИНАМ"}, ExchangeRate{kind=SELL, price=73.5000, currency=EUR, trend=NONE, best=false, date=Mon Oct 03 12:58:00 GMT+03:00 2016, bank=ЗАО "Банк ФИНАМ"}]}]; currency=USD;kind=SELL
