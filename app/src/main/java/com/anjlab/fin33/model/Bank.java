@@ -82,9 +82,7 @@ public class Bank {
     public static ExchangeRate findBestRate(
             List<Bank> banks, ExchangeRate.Currency currency, ExchangeRate.Kind kind) {
         for (Bank bank : banks) {
-            //Log.d("Bank = ", ""+ currency );
             ExchangeRate rate = bank.getExchangeRates(currency, kind);
-            //return rate;
             if (rate.isBest()) {
 
                 return rate;

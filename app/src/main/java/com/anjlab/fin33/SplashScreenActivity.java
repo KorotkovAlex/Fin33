@@ -39,19 +39,6 @@ public class SplashScreenActivity extends AppCompatActivity implements BanksUpda
         final Animation animationRotateCenter = AnimationUtils.loadAnimation(this, R.anim.rotate);
         textViewSS.startAnimation(animationRotateCenter);
         AppState.getInstance().subscribe(this);
-//        if(AppState.getInstance().getBanks().isEmpty()) {
-//                try {
-//                    new ParseFin33Task(getAssets().open("fin33_16_09_2016.html"))
-//                    .execute();
-//                } catch (IOException e) {
-//                    // todo fix me
-//                    e.printStackTrace();
-//                }
-//        }
-//        else
-//        {
-//            onParseDone(AppState.getInstance().getBanks());
-//          }
         ParseFin33Task mt = new ParseFin33Task(null);
         mt.execute();
 

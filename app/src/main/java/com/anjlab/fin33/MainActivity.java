@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
-    //LinearLayout llB;
-    ViewPagerAdapter viewPagerAdapter;//view1;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.app_bar, menu);
@@ -42,26 +40,11 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //llB =(LinearLayout) findViewById(R.id.llB);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-
-//        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        viewPager.setAdapter(viewPagerAdapter);
         viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
                 MainActivity.this));
         tabLayout.setupWithViewPager(viewPager);
-
-//        llB = (LinearLayout) findViewById(R.id.llB);
-//        llB.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//
-//                ParseFin33Task mt = new ParseFin33Task(null);
-//                mt.execute();
-//
-//            }
-//        });
         AppState.getInstance().subscribe(this);
 
     }
