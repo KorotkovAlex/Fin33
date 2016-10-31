@@ -14,6 +14,7 @@ import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.ExchangeRate;
 import com.anjlab.fin33.view.ExchangeRateView;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -81,13 +82,14 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
                 ExchangeRate sellRate = bank.getExchangeRates(currency,ExchangeRate.Kind.SELL);
                 ExchangeRate buyRate = bank.getExchangeRates(currency,ExchangeRate.Kind.BUY);
                 holder.tvNameBank.setText(bank.getName());
-        if(exchangeRateDate.getDate() == null) {
-            holder.textViewDate.setText("");
+
+        try {
+            holder.textViewDate.setText("" + exchangeRateDate.getFormattedDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        {
-            holder.textViewDate.setText("" + exchangeRateDate.getDate());
-        }
-                holder.ervBuy.setExchangeRate(buyRate);
+
+        holder.ervBuy.setExchangeRate(buyRate);
                 holder.ervSell.setExchangeRate(sellRate);
         ExchangeRate exchangeRate = bank.getExchangeRates(currency,ExchangeRate.Kind.BUY);
         if(exchangeRate.isBest()){

@@ -26,16 +26,15 @@ public class ErrorSplashActivity extends AppCompatActivity implements BanksUpdat
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_error_splash);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
-        TextView textView = (TextView) findViewById( R.id.textViewES);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
+        TextView textView = (TextView) findViewById(R.id.textViewES);
         textView.setTypeface(font);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         RelativeLayout rlR = (RelativeLayout) findViewById(R.id.relativeLayoutReset);
         RelativeLayout rlD = (RelativeLayout) findViewById(R.id.relativeLayoutDemo);
-        rlR.setOnClickListener(new View.OnClickListener(){
+        rlR.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
                 Intent intent = new Intent(ErrorSplashActivity.this, SplashScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK & Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -43,21 +42,20 @@ public class ErrorSplashActivity extends AppCompatActivity implements BanksUpdat
 
             }
         });
-        rlD.setOnClickListener(new View.OnClickListener(){
+        rlD.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
-                if(AppState.getInstance().getBanks().isEmpty()) {
+                if (AppState.getInstance().getBanks().isEmpty()) {
                     try {
-                        new ParseFin33Task(getAssets().open("fin33_16_09_2016.html"))
-                                .execute();
+                        ParseFin33Task task = new ParseFin33Task(getAssets().open("fin33_16_09_2016.html"));
+                        task.setDemo(true);
+                        task.execute();
                     } catch (IOException e) {
                         // todo fix me
                         e.printStackTrace();
                     }
-                }
-                else
-                {
+                } else {
                     onParseDone(AppState.getInstance().getBanks());
                 }
 

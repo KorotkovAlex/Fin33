@@ -76,20 +76,21 @@
         </LinearLayout>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:id="@+id/textViewDate"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Название банка"
+            android:text="@string/name_bank"
             android:id="@+id/tvNameBank"
             android:gravity="center_vertical|center_horizontal"
             android:textSize="15sp"
             android:layout_marginBottom="6dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Дата"
-            android:id="@+id/textViewDate"
-            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 

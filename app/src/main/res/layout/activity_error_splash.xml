@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ошибка"
+        android:text="@string/error"
         android:id="@+id/textView6"
         android:layout_below="@+id/textViewES"
         android:layout_centerHorizontal="true"
@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Reset"
+            android:text="@string/restar"
             android:id="@+id/textView9"
             android:gravity="center_vertical|center_horizontal"
             android:textColor="@color/colorDollar"/>
@@ -60,7 +60,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Demo"
+            android:text="@string/demo"
             android:id="@+id/textView10"
             android:gravity="center_vertical|center_horizontal"
             android:textColor="@color/colorDollar"

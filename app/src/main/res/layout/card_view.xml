@@ -64,22 +64,24 @@
                         android:gravity="center_horizontal"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="20dp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Название банка"
+                        android:text="@string/date"
+                        android:id="@+id/textViewDateBuy"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/name_bank"
                         android:id="@+id/textView3"
                         android:gravity="center_vertical|center_horizontal"
                         android:paddingBottom="10dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Дата"
-                        android:id="@+id/textViewDateBuy"
-                        android:layout_gravity="center_horizontal" />
 
                 </LinearLayout>
 
@@ -105,22 +107,24 @@
                         android:gravity="center_horizontal"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="20dp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Название банка"
+                        android:text="@string/date"
+                        android:id="@+id/textViewDateSell"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/name_bank"
                         android:id="@+id/textView4"
                         android:gravity="center_vertical|center_horizontal"
                         android:paddingBottom="10dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginLeft="20dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Дата"
-                        android:id="@+id/textViewDateSell"
-                        android:layout_gravity="center_horizontal" />
 
                 </LinearLayout>
 

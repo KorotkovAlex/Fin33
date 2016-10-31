@@ -10,4 +10,11 @@
     <string name="icon_up">&#xf062;</string>
     <string name="icon_best">&#xf087;</string>&#xf021;
     <string name="icon_refresh">&#xf021;</string>
+    <string name="error">Ошибка</string>
+    <string name="restar">Reset</string>
+    <string name="demo">Demo</string>
+    <string name="loading_data">Загрузка данных</string>
+    <string name="date">Дата</string>
+    <string name="name_bank">Название банка</string>
+    <string name="course">75.000</string>
 </resources>
