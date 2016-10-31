@@ -1,12 +1,14 @@
 package com.anjlab.fin33;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.BanksUpdatedListener;
 import com.anjlab.fin33.model.ExchangeRate;
 import com.anjlab.fin33.model.Fin33Parser;
+import com.crashlytics.android.Crashlytics;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -39,11 +41,12 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
         try {
             Document doc;
             if(input == null) {
+                Log.d("Input null","NULL");
                 doc = Jsoup.connect(url).get();
             }else {
+                Log.d("Input ss","ssss");
                 doc = Jsoup.parse(input, "windows-1251", "");
             }
-            //
 
             new Fin33Parser().parseMainInfo(doc, new BanksUpdatedListener() {
                 @Override
@@ -59,6 +62,7 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
             });
         } catch (Exception e) {
             this.error = e;
+            Crashlytics.logException(new RuntimeException("Error"));
         }
         return null;
     }
@@ -66,6 +70,7 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
     @Override
     protected void onPostExecute(Void result) {
         if (error != null) {
+            Log.d("AppState.getInstance().parseError(error);","AppState.getInstance().parseError(error);");
             AppState.getInstance().parseError(error);
         }
         else if (banks != null) {

@@ -1,15 +1,15 @@
 package com.anjlab.fin33.model;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.InputStream;
-import java.text.ParseException;
 import java.io.IOException;
 import java.math.BigDecimal;
-
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,6 +51,7 @@ public class Fin33Parser {
                 try {
                     docDate = format.parse(dateStr);
                 } catch (ParseException e) {
+                    Crashlytics.logException(new RuntimeException("This is a parseException"));
                     e.printStackTrace();
                 }
 
@@ -65,25 +66,19 @@ public class Fin33Parser {
                 try {
                     docDate = format.parse(dd + "." + mm + "." + yyyy + " " + timeStr);
                 } catch (ParseException e) {
+                    Crashlytics.logException(new RuntimeException("This is a parseException"));
                     e.printStackTrace();
                 }
             }
-
-
             bank.addExchangeRate(createExchangeRateFrom(tds.get(1), ExchangeRate.Kind.BUY, ExchangeRate.Currency.USD, docDate, bank));
             bank.addExchangeRate(createExchangeRateFrom(tds.get(2), ExchangeRate.Kind.SELL, ExchangeRate.Currency.USD, docDate, bank));
             bank.addExchangeRate(createExchangeRateFrom(tds.get(3), ExchangeRate.Kind.BUY, ExchangeRate.Currency.EUR, docDate, bank));
             bank.addExchangeRate(createExchangeRateFrom(tds.get(4), ExchangeRate.Kind.SELL, ExchangeRate.Currency.EUR, docDate, bank));
             banks.add(bank);
-
-
             listener.onParseDone(banks);
         }
     }
 
-//        };
-//        downloadThread.start();
- //   }
     public ExchangeRate createExchangeRateFrom(Element td, ExchangeRate.Kind kind, ExchangeRate.Currency currency, Date docDate, Bank bank){
         ExchangeRate exchangeRate = new ExchangeRate();
         String str=td.text().replaceAll(",","");

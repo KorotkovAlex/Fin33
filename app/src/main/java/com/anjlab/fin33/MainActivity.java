@@ -1,27 +1,20 @@
 package com.anjlab.fin33;
 
 
-
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.BanksUpdatedListener;
-import com.anjlab.fin33.model.ViewPagerAdapter;
 
-import java.io.IOException;
 import java.util.List;
 
 
@@ -46,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
                 MainActivity.this));
         tabLayout.setupWithViewPager(viewPager);
         AppState.getInstance().subscribe(this);
-
     }
 
     @Override
@@ -74,5 +66,16 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
                         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        //AppState.getInstance().updateBanks(AppState.getInstance().getBanks());
+        super.onStart();
     }
 }

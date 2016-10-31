@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.ExchangeRate;
 import com.anjlab.fin33.view.ExchangeRateView;
+import com.crashlytics.android.Crashlytics;
 
 import java.text.ParseException;
 import java.util.List;
@@ -62,6 +63,7 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
                 try {
                     holder.textViewDateBuy.setText("" + exchange.getFormattedDate());
                 } catch (ParseException e) {
+                    Crashlytics.logException(new RuntimeException("This is a parseException"));
                     e.printStackTrace();
                 }
             holder.textView3.setText(bank.getName());
@@ -70,6 +72,7 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
             try {
                 holder.textViewDateSell.setText("" + exchange.getFormattedDate());
             } catch (ParseException e) {
+                Crashlytics.logException(new RuntimeException("This is a parseException"));
                 e.printStackTrace();
             }
             bank = exchange.getBank();

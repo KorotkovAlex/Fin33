@@ -1,11 +1,8 @@
 package com.anjlab.fin33;
 
-import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,14 +13,11 @@ import android.widget.TextView;
 
 import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
-import com.anjlab.fin33.model.ExchangeRate;
-import com.anjlab.fin33.model.Fin33Parser;
 import com.anjlab.fin33.model.BanksUpdatedListener;
+import com.anjlab.fin33.model.ExchangeRate;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.text.ParseException;
 import java.util.List;
 
 
@@ -46,7 +40,6 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
     Bank bank;
     List<Bank> banks;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    //ExchangeRate exchangeRate = ExchangeRate.Currency.EUR;
     ExchangeRate.Currency currency;
 
     public static ExchangeRateFragment newInstance(ExchangeRate.Currency currency) {
@@ -58,9 +51,7 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
         return fragment;
     }
 
-    public ExchangeRateFragment() {
-        // Required empty public constructor
-    }
+    public ExchangeRateFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,7 +64,8 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-
+        AppState.getInstance().subscribe(this);
+        onParseDone(AppState.getInstance().getBanks());
         if(!mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setOnRefreshListener(
                     new SwipeRefreshLayout.OnRefreshListener() {
@@ -81,15 +73,12 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
                         public void onRefresh() {
                             ParseFin33Task mt = new ParseFin33Task(null);
                             mt.execute();
-
-
                         }
 
                     }
             );
         }
-        AppState.getInstance().subscribe(this);
-        onParseDone(AppState.getInstance().getBanks());
+
         return view;
     }
 
@@ -123,6 +112,6 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
     @Override
     public void onParseError(Throwable error) {
         //TODO
-
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

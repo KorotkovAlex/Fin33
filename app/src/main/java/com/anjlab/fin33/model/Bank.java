@@ -1,9 +1,5 @@
 package com.anjlab.fin33.model;
 
-import android.util.Log;
-
-import com.anjlab.fin33.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +80,6 @@ public class Bank {
         for (Bank bank : banks) {
             ExchangeRate rate = bank.getExchangeRates(currency, kind);
             if (rate.isBest()) {
-
                 return rate;
             }
         }
