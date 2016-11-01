@@ -1,11 +1,8 @@
 package com.anjlab.fin33;
 
-import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,50 +13,40 @@ import android.widget.TextView;
 
 import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
-import com.anjlab.fin33.model.ExchangeRate;
-import com.anjlab.fin33.model.Fin33Parser;
 import com.anjlab.fin33.model.BanksUpdatedListener;
+import com.anjlab.fin33.model.ExchangeRate;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.text.ParseException;
 import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
-
+ * <p>
  * to handle interaction events.
  * Use the {@link ExchangeRateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class ExchangeRateFragment extends Fragment implements BanksUpdatedListener {
+    public LinearLayout mN;
+    String[] myDataset;
+    SwipeRefreshLayout mSwipeRefreshLayout;;
+    ExchangeRate.Currency currency;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    public  LinearLayout mN;
-    public LinearLayout llB;
-    String[] myDataset;
-    Document doc;
-    Bank bank;
-    List<Bank> banks;
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    //ExchangeRate exchangeRate = ExchangeRate.Currency.EUR;
-    ExchangeRate.Currency currency;
+
+    public ExchangeRateFragment() {
+        // Required empty public constructor
+    }
 
     public static ExchangeRateFragment newInstance(ExchangeRate.Currency currency) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("currency",currency);
+        bundle.putSerializable("currency", currency);
         ExchangeRateFragment fragment = new ExchangeRateFragment();
 
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    public ExchangeRateFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -74,17 +61,14 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
         mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
 
-        if(!mSwipeRefreshLayout.isRefreshing()) {
+        if (!mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setOnRefreshListener(
                     new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
                         public void onRefresh() {
                             ParseFin33Task mt = new ParseFin33Task(null);
                             mt.execute();
-
-
                         }
-
                     }
             );
         }
@@ -111,7 +95,7 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
         mAdapter = new BankRowAdapter(banks, currency);
         mRecyclerView.setAdapter(mAdapter);
         TextView btnNew = new TextView(getContext());
-        if( banks.size() == 0){
+        if (banks.size() == 0) {
             btnNew.setText("Перезагрузите приложение");
             mN.addView(btnNew);
         } else {

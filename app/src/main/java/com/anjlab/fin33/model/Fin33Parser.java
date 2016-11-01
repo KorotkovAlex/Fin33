@@ -1,15 +1,11 @@
 package com.anjlab.fin33.model;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.InputStream;
-import java.text.ParseException;
-import java.io.IOException;
 import java.math.BigDecimal;
-
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,14 +18,8 @@ import java.util.List;
  */
 public class Fin33Parser {
 
-    public void parseMainInfo(final Document doc, final BanksUpdatedListener listener) throws ParseException {
-
-
-        //List<ExchangeRate> exchangeRates = new ArrayList<>();
-//       Thread downloadThread =  new Thread () { //убрать поток
-//           @Override
-//           public void run() {
-
+    public void parseMainInfo(final Document doc, final BanksUpdatedListener listener)
+            throws ParseException {
         final List<Bank> banks = new ArrayList<>();
         Elements trs = doc.select("table.otscourses tr");
         trs.remove(0);
@@ -75,24 +65,19 @@ public class Fin33Parser {
             bank.addExchangeRate(createExchangeRateFrom(tds.get(3), ExchangeRate.Kind.BUY, ExchangeRate.Currency.EUR, docDate, bank));
             bank.addExchangeRate(createExchangeRateFrom(tds.get(4), ExchangeRate.Kind.SELL, ExchangeRate.Currency.EUR, docDate, bank));
             banks.add(bank);
-
-
             listener.onParseDone(banks);
         }
     }
 
-//        };
-//        downloadThread.start();
- //   }
-    public ExchangeRate createExchangeRateFrom(Element td, ExchangeRate.Kind kind, ExchangeRate.Currency currency, Date docDate, Bank bank){
+    public ExchangeRate createExchangeRateFrom(Element td, ExchangeRate.Kind kind, ExchangeRate.Currency currency, Date docDate, Bank bank) {
         ExchangeRate exchangeRate = new ExchangeRate();
-        String str=td.text().replaceAll(",","");
-        BigDecimal bd=new BigDecimal(str);
-        if(td.hasClass("rate_up")){
+        String str = td.text().replaceAll(",", "");
+        BigDecimal bd = new BigDecimal(str);
+        if (td.hasClass("rate_up")) {
             exchangeRate.setTrend(ExchangeRate.Trend.UP);
-        } else if(td.hasClass("rate_down")){
+        } else if (td.hasClass("rate_down")) {
             exchangeRate.setTrend(ExchangeRate.Trend.DOWN);
-        }else {
+        } else {
             exchangeRate.setTrend(ExchangeRate.Trend.NONE);
         }
         exchangeRate.setBest(td.hasClass("best"));
@@ -102,9 +87,5 @@ public class Fin33Parser {
         exchangeRate.setDate(docDate);
         exchangeRate.setBank(bank);
         return exchangeRate;
-    }
-
-    public Document getDocument() throws IOException {
-        return Jsoup.connect("http://www.fin33.ru/").get();
     }
 }

@@ -17,13 +17,14 @@ import java.util.List;
 /**
  * Created by Саня on 21.10.2016.
  */
-class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
+class ParseFin33Task extends AsyncTask<Void, Void, Void> {
 
+    String url = "http://www.fin33.ru/";
     private InputStream input;
     private List<Bank> banks;
-    String url = "http://www.fin33.ru/";
     private Throwable error;
     private boolean demo;
+
     public ParseFin33Task(InputStream input) {
         this.input = input;
     }
@@ -38,9 +39,9 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
     protected Void doInBackground(Void... params) {
         try {
             Document doc;
-            if(input == null) {
+            if (input == null) {
                 doc = Jsoup.connect(url).get();
-            }else {
+            } else {
                 doc = Jsoup.parse(input, "windows-1251", "");
             }
             //
@@ -67,8 +68,7 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
     protected void onPostExecute(Void result) {
         if (error != null) {
             AppState.getInstance().parseError(error);
-        }
-        else if (banks != null) {
+        } else if (banks != null) {
             for (Bank bank : banks) {
                 for (ExchangeRate exchangeRate : bank.getExchangeRates()) {
                     exchangeRate.setDemo(demo);
@@ -78,10 +78,11 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
         }
     }
 
+    public boolean getDemo() {
+        return demo;
+    }
+
     public void setDemo(boolean demo) {
         this.demo = demo;
-    }
-    public boolean getDemo(){
-        return demo;
     }
 }

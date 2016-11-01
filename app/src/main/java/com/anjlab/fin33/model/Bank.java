@@ -1,9 +1,5 @@
 package com.anjlab.fin33.model;
 
-import android.util.Log;
-
-import com.anjlab.fin33.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +13,25 @@ public class Bank {
     private String phoneNumber;
     private String img;
 
-    public void setName(String name) {
-        this.name = name;
+    public static ExchangeRate findBestRate(
+            List<Bank> banks, ExchangeRate.Currency currency, ExchangeRate.Kind kind) {
+        for (Bank bank : banks) {
+            ExchangeRate rate = bank.getExchangeRates(currency, kind);
+            if (rate.isBest()) {
+
+                return rate;
+            }
+        }
+
+        return null;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void addExchangeRate(ExchangeRate exchangeRate) {
@@ -36,28 +45,28 @@ public class Bank {
         return exchangeRates;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getAddress() {
         return address;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getImg() {
         return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public ExchangeRate getExchangeRates(ExchangeRate.Currency currency, ExchangeRate.Kind kind) {
@@ -69,6 +78,7 @@ public class Bank {
         }
         return null;
     }
+
     public ExchangeRate getBest(ExchangeRate.Currency currency, ExchangeRate.Kind kind) {
         for (ExchangeRate exchangeRate : exchangeRates) {
             if (exchangeRate.getCurrency() == currency
@@ -76,19 +86,6 @@ public class Bank {
                 return exchangeRate;
             }
         }
-        return null;
-    }
-
-    public static ExchangeRate findBestRate(
-            List<Bank> banks, ExchangeRate.Currency currency, ExchangeRate.Kind kind) {
-        for (Bank bank : banks) {
-            ExchangeRate rate = bank.getExchangeRates(currency, kind);
-            if (rate.isBest()) {
-
-                return rate;
-            }
-        }
-
         return null;
     }
 

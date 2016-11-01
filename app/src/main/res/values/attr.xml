@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="ExchangeRateView">
 
-</declare-styleable>
+    </declare-styleable>
     <declare-styleable name="PriceSellView">
 
     </declare-styleable>

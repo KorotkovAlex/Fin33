@@ -1,12 +1,9 @@
 package com.anjlab.fin33;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,33 +12,26 @@ import android.view.ViewGroup;
 
 import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
-import com.anjlab.fin33.model.ExchangeRate;
-import com.anjlab.fin33.model.Fin33Parser;
 import com.anjlab.fin33.model.BanksUpdatedListener;
+import com.anjlab.fin33.model.ExchangeRate;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-
 
 
 public class MainFragment extends Fragment implements BanksUpdatedListener {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     String[] myDataset;
     Document doc;
     Bank bank;
     List<Bank> banks;
     Context context;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -54,9 +44,9 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-                mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        if(!mSwipeRefreshLayout.isRefreshing()) {
+        if (!mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setOnRefreshListener(
                     new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
