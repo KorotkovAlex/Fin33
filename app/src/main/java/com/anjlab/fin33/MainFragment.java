@@ -20,18 +20,18 @@ import org.jsoup.nodes.Document;
 import java.util.List;
 
 
-
 public class MainFragment extends Fragment implements BanksUpdatedListener {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     String[] myDataset;
     Document doc;
     Bank bank;
     List<Bank> banks;
     Context context;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -46,9 +46,9 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
         AppState.getInstance().subscribe(this);
 
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-                mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        if(!mSwipeRefreshLayout.isRefreshing()) {
+        if (!mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setOnRefreshListener(
                     new SwipeRefreshLayout.OnRefreshListener() {
                         @Override

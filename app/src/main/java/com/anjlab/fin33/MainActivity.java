@@ -22,11 +22,13 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.app_bar, menu);
         return true;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

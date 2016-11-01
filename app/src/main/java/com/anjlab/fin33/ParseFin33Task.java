@@ -19,13 +19,14 @@ import java.util.List;
 /**
  * Created by Саня on 21.10.2016.
  */
-class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
+class ParseFin33Task extends AsyncTask<Void, Void, Void> {
 
+    String url = "http://www.fin33.ru/";
     private InputStream input;
     private List<Bank> banks;
-    String url = "http://www.fin33.ru/";
     private Throwable error;
     private boolean demo;
+
     public ParseFin33Task(InputStream input) {
         this.input = input;
     }
@@ -40,11 +41,11 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
     protected Void doInBackground(Void... params) {
         try {
             Document doc;
-            if(input == null) {
-                Log.d("Input null","NULL");
+            if (input == null) {
+                Log.d("Input null", "NULL");
                 doc = Jsoup.connect(url).get();
-            }else {
-                Log.d("Input ss","ssss");
+            } else {
+                Log.d("Input ss", "ssss");
                 doc = Jsoup.parse(input, "windows-1251", "");
             }
 
@@ -70,10 +71,9 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
     @Override
     protected void onPostExecute(Void result) {
         if (error != null) {
-            Log.d("AppState.getInstance().parseError(error);","AppState.getInstance().parseError(error);");
+            Log.d("AppState.getInstance().parseError(error);", "AppState.getInstance().parseError(error);");
             AppState.getInstance().parseError(error);
-        }
-        else if (banks != null) {
+        } else if (banks != null) {
             for (Bank bank : banks) {
                 for (ExchangeRate exchangeRate : bank.getExchangeRates()) {
                     exchangeRate.setDemo(demo);
@@ -83,10 +83,11 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void>  {
         }
     }
 
+    public boolean getDemo() {
+        return demo;
+    }
+
     public void setDemo(boolean demo) {
         this.demo = demo;
-    }
-    public boolean getDemo(){
-        return demo;
     }
 }

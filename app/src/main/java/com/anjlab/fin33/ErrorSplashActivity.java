@@ -24,7 +24,7 @@ public class ErrorSplashActivity extends AppCompatActivity implements BanksUpdat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this,new Crashlytics());
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_error_splash);
         Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
         TextView textView = (TextView) findViewById(R.id.textViewES);
@@ -37,7 +37,8 @@ public class ErrorSplashActivity extends AppCompatActivity implements BanksUpdat
             public void onClick(View v) {
                 Intent intent = new Intent(ErrorSplashActivity.this, SplashScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK & Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);            }
+                startActivity(intent);
+            }
         });
         rlD.setOnClickListener(new View.OnClickListener() {
             @Override

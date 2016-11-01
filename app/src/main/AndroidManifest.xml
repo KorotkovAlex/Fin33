@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ErrorSplashActivity"></activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="7baab5c68a50a43e4d375f93c8d9c091d2495c92" />

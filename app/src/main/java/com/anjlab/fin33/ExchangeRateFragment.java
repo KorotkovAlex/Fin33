@@ -24,16 +24,13 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
-
+ * <p>
  * to handle interaction events.
  * Use the {@link ExchangeRateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class ExchangeRateFragment extends Fragment implements BanksUpdatedListener {
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    public  LinearLayout mN;
+    public LinearLayout mN;
     public LinearLayout llB;
     String[] myDataset;
     Document doc;
@@ -41,17 +38,21 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
     List<Bank> banks;
     SwipeRefreshLayout mSwipeRefreshLayout;
     ExchangeRate.Currency currency;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    public ExchangeRateFragment() {
+    }
 
     public static ExchangeRateFragment newInstance(ExchangeRate.Currency currency) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("currency",currency);
+        bundle.putSerializable("currency", currency);
         ExchangeRateFragment fragment = new ExchangeRateFragment();
 
         fragment.setArguments(bundle);
         return fragment;
     }
-
-    public ExchangeRateFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +67,7 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         AppState.getInstance().subscribe(this);
         onParseDone(AppState.getInstance().getBanks());
-        if(!mSwipeRefreshLayout.isRefreshing()) {
+        if (!mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setOnRefreshListener(
                     new SwipeRefreshLayout.OnRefreshListener() {
                         @Override
@@ -100,7 +101,7 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
         mAdapter = new BankRowAdapter(banks, currency);
         mRecyclerView.setAdapter(mAdapter);
         TextView btnNew = new TextView(getContext());
-        if( banks.size() == 0){
+        if (banks.size() == 0) {
             btnNew.setText("Перезагрузите приложение");
             mN.addView(btnNew);
         } else {

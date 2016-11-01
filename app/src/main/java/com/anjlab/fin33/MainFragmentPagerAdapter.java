@@ -12,7 +12,7 @@ import com.anjlab.fin33.model.ExchangeRate;
  */
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] {"Best" ,"EUR", "USD" };
+    private String tabTitles[] = new String[]{"Best", "EUR", "USD"};
     private Context context;
 
     public MainFragmentPagerAdapter(FragmentManager fm, Context context) {
@@ -27,9 +27,9 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if(position == 0 ){
+        if (position == 0) {
             return new MainFragment();
-        } else if(position == 1){
+        } else if (position == 1) {
             return ExchangeRateFragment.newInstance(ExchangeRate.Currency.EUR);
 
         } else {

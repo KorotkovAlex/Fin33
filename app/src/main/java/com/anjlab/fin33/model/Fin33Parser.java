@@ -79,15 +79,15 @@ public class Fin33Parser {
         }
     }
 
-    public ExchangeRate createExchangeRateFrom(Element td, ExchangeRate.Kind kind, ExchangeRate.Currency currency, Date docDate, Bank bank){
+    public ExchangeRate createExchangeRateFrom(Element td, ExchangeRate.Kind kind, ExchangeRate.Currency currency, Date docDate, Bank bank) {
         ExchangeRate exchangeRate = new ExchangeRate();
-        String str=td.text().replaceAll(",","");
-        BigDecimal bd=new BigDecimal(str);
-        if(td.hasClass("rate_up")){
+        String str = td.text().replaceAll(",", "");
+        BigDecimal bd = new BigDecimal(str);
+        if (td.hasClass("rate_up")) {
             exchangeRate.setTrend(ExchangeRate.Trend.UP);
-        } else if(td.hasClass("rate_down")){
+        } else if (td.hasClass("rate_down")) {
             exchangeRate.setTrend(ExchangeRate.Trend.DOWN);
-        }else {
+        } else {
             exchangeRate.setTrend(ExchangeRate.Trend.NONE);
         }
         exchangeRate.setBest(td.hasClass("best"));

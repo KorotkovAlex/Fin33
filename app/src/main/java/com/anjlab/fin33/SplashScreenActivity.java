@@ -26,13 +26,23 @@ public class SplashScreenActivity extends AppCompatActivity implements BanksUpda
     TextView textViewSS;
     TextView textView6;
 
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this,new Crashlytics());
+        Fabric.with(this, new Crashlytics());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_splash_screen);
-        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+        Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
         textViewSS = (TextView) findViewById(R.id.textViewSS);
         textViewSS.setTypeface(font);
 
@@ -55,31 +65,19 @@ public class SplashScreenActivity extends AppCompatActivity implements BanksUpda
 
     @Override
     public void onParseDone(List<Bank> banks) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
-            finish();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void onParseError(Throwable error) {
         //TODO
-        Log.d("Errorr","Intent");
+        Log.d("Errorr", "Intent");
         Intent intent = new Intent(this, ErrorSplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-    }
-
-    public static boolean isOnline(Context context)
-    {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting())
-        {
-            return true;
-        }
-        return false;
     }
 
 }

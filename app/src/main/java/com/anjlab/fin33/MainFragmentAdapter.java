@@ -18,26 +18,6 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
     private ExchangeRate.Currency[] currencies;
     private List<Bank> banks;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
-        public TextView textView4;
-        public TextView textView3;
-        private TextView textViewDateBuy;
-        private TextView textViewDateSell;
-        public ExchangeRateView ervBuy;
-        public ExchangeRateView ervSell;
-        public ViewHolder(View v) {
-            super(v);
-            mTextView = (TextView) v.findViewById(R.id.currency);
-            textView4 = (TextView) v.findViewById(R.id.textView4);
-            textView3 = (TextView) v.findViewById(R.id.textView3);
-            textViewDateBuy = (TextView) v.findViewById(R.id.textViewDateBuy);
-            textViewDateSell = (TextView) v.findViewById(R.id.textViewDateSell);
-            ervBuy =(ExchangeRateView) v.findViewById(R.id.ervBuy);
-            ervSell =(ExchangeRateView) v.findViewById(R.id.ervSell);
-        }
-    }
-
     public MainFragmentAdapter(List<Bank> banks, ExchangeRate.Currency[] currencies) {
         this.banks = banks;
         this.currencies = currencies;
@@ -58,14 +38,14 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
         Bank bank = new Bank();
         holder.ervBuy.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.BUY));
         ExchangeRate exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.BUY);
-        if (exchange !=  null) {
+        if (exchange != null) {
             bank = exchange.getBank();
-                try {
-                    holder.textViewDateBuy.setText("" + exchange.getFormattedDate());
-                } catch (ParseException e) {
-                    Crashlytics.logException(new RuntimeException("This is a parseException"));
-                    e.printStackTrace();
-                }
+            try {
+                holder.textViewDateBuy.setText("" + exchange.getFormattedDate());
+            } catch (ParseException e) {
+                Crashlytics.logException(new RuntimeException("This is a parseException"));
+                e.printStackTrace();
+            }
             holder.textView3.setText(bank.getName());
             holder.ervSell.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL));
             exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL);
@@ -94,5 +74,26 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
     @Override
     public int getItemCount() {
         return currencies.length;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView mTextView;
+        public TextView textView4;
+        public TextView textView3;
+        public ExchangeRateView ervBuy;
+        public ExchangeRateView ervSell;
+        private TextView textViewDateBuy;
+        private TextView textViewDateSell;
+
+        public ViewHolder(View v) {
+            super(v);
+            mTextView = (TextView) v.findViewById(R.id.currency);
+            textView4 = (TextView) v.findViewById(R.id.textView4);
+            textView3 = (TextView) v.findViewById(R.id.textView3);
+            textViewDateBuy = (TextView) v.findViewById(R.id.textViewDateBuy);
+            textViewDateSell = (TextView) v.findViewById(R.id.textViewDateSell);
+            ervBuy = (ExchangeRateView) v.findViewById(R.id.ervBuy);
+            ervSell = (ExchangeRateView) v.findViewById(R.id.ervSell);
+        }
     }
 }

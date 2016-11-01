@@ -3,25 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreenActivity"
-    android:background="@color/colorDollar">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewSS"
-        android:textSize="60sp"
-        android:textColor="@color/colorText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="161dp" />
+    android:background="@color/colorDollar"
+    tools:context=".SplashScreenActivity">
 
     <TextView
+        android:id="@+id/textViewSS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/loading_data"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="161dp"
+        android:textColor="@color/colorText"
+        android:textSize="60sp" />
+
+    <TextView
         android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/textViewSS"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="68dp"
-        android:textColor="@color/colorText"/>
+        android:text="@string/loading_data"
+        android:textColor="@color/colorText" />
 </RelativeLayout>
