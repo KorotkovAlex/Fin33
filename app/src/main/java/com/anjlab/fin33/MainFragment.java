@@ -71,5 +71,6 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
 
     @Override
     public void onParseError(Throwable error) {
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

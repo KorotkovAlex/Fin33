@@ -16,13 +16,14 @@ import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.BanksUpdatedListener;
 import com.anjlab.fin33.model.ExchangeRate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * <p>
+ * <p/>
  * to handle interaction events.
  * Use the {@link ExchangeRateFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -30,9 +31,11 @@ import java.util.List;
 public class ExchangeRateFragment extends Fragment implements BanksUpdatedListener {
 
     public LinearLayout mN;
-    String[] myDataset;
-    SwipeRefreshLayout mSwipeRefreshLayout;;
+    //String[] myDataset;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    ;
     ExchangeRate.Currency currency;
+    ArrayList<String> myDataset = new ArrayList<String>();
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -86,10 +89,12 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
 
     @Override
     public void onParseDone(List<Bank> banks) {
-        myDataset = new String[16];
+
+        //myDataset = new String[17];
         for (int i = 0; banks.size() > i; i++) {
             Bank bank = banks.get(i);
-            myDataset[i] = bank.getName();
+            //myDataset[i] = bank.getName();
+            myDataset.add(bank.getName());
         }
         mAdapter = new BankRowAdapter(banks, currency);
         mRecyclerView.setAdapter(mAdapter);
@@ -105,5 +110,6 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
 
     @Override
     public void onParseError(Throwable error) {
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

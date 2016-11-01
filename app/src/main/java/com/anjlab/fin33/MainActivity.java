@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 
 import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
@@ -24,25 +23,21 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
     TabLayout tabLayout;
     ViewPager viewPager;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.app_bar, menu);
-        return true;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
                 MainActivity.this));
         tabLayout.setupWithViewPager(viewPager);
         AppState.getInstance().subscribe(this);
-
     }
 
     @Override
@@ -71,4 +66,6 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+
 }

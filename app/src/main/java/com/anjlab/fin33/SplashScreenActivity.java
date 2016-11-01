@@ -56,7 +56,7 @@ public class SplashScreenActivity extends AppCompatActivity implements BanksUpda
     public void onParseError(Throwable error) {
         Intent intent = new Intent(this, ErrorSplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK
-                |Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 
