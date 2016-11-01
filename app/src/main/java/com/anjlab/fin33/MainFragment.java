@@ -1,6 +1,5 @@
 package com.anjlab.fin33;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,25 +14,18 @@ import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.BanksUpdatedListener;
 import com.anjlab.fin33.model.ExchangeRate;
 
-import org.jsoup.nodes.Document;
-
 import java.util.List;
 
 
 public class MainFragment extends Fragment implements BanksUpdatedListener {
 
-    String[] myDataset;
-    Document doc;
-    Bank bank;
     List<Bank> banks;
-    Context context;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     public MainFragment() {
-        // Required empty public constructor
     }
 
 
@@ -58,20 +50,17 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
         }
         AppState.getInstance().subscribe(this);
         onParseDone(AppState.getInstance().getBanks());
-
         return view;
     }
 
     @Override
     public void onDestroyView() {
-
         AppState.getInstance().unsubscribe(this);
         super.onDestroyView();
     }
 
     @Override
     public void onParseDone(List<Bank> banks) {
-        // TODO
         MainFragment.this.banks = banks;
         mAdapter = new MainFragmentAdapter(AppState.getInstance().getBanks(), new ExchangeRate.Currency[]{
                 ExchangeRate.Currency.USD, ExchangeRate.Currency.EUR
@@ -82,7 +71,5 @@ public class MainFragment extends Fragment implements BanksUpdatedListener {
 
     @Override
     public void onParseError(Throwable error) {
-        //TODO
-
     }
 }

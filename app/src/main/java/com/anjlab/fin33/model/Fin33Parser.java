@@ -20,6 +20,7 @@ public class Fin33Parser {
 
     public void parseMainInfo(final Document doc, final BanksUpdatedListener listener)
             throws ParseException {
+
         final List<Bank> banks = new ArrayList<>();
         Elements trs = doc.select("table.otscourses tr");
         trs.remove(0);
@@ -28,24 +29,21 @@ public class Fin33Parser {
             Bank bank = new Bank();
             Date docDate = null;
             Elements tds = tr.getElementsByTag("td");
-            Element td = tds.get(0); // Получаем первый td  и все его дочерние эллементы
-            Element a = td.select("a").first();// Получаем ссылку банка
+            Element td = tds.get(0);
+            Element a = td.select("a").first();
             a.attr("href");
-            bank.setName(a.text()); // Запоминаем  имя банка
+            bank.setName(a.text());
             Element sup = td.select("sup").first();
             if (sup.children().size() == 1) {
                 String dateStr = sup.child(0).text();
                 SimpleDateFormat format = new SimpleDateFormat();
                 format.applyPattern("dd.MM.yyyy");
-
                 try {
                     docDate = format.parse(dateStr);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
             } else if (sup.children().size() == 2) {
-                //String toDay = sup.child(0).text();
                 String timeStr = sup.child(1).text();
                 SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
                 Calendar calendar = new GregorianCalendar();
@@ -58,8 +56,6 @@ public class Fin33Parser {
                     e.printStackTrace();
                 }
             }
-
-
             bank.addExchangeRate(createExchangeRateFrom(tds.get(1), ExchangeRate.Kind.BUY, ExchangeRate.Currency.USD, docDate, bank));
             bank.addExchangeRate(createExchangeRateFrom(tds.get(2), ExchangeRate.Kind.SELL, ExchangeRate.Currency.USD, docDate, bank));
             bank.addExchangeRate(createExchangeRateFrom(tds.get(3), ExchangeRate.Kind.BUY, ExchangeRate.Currency.EUR, docDate, bank));

@@ -19,6 +19,7 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements BanksUpdatedListener {
+
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;

@@ -28,6 +28,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class ExchangeRateFragment extends Fragment implements BanksUpdatedListener {
+
     public LinearLayout mN;
     String[] myDataset;
     SwipeRefreshLayout mSwipeRefreshLayout;;
@@ -37,7 +38,6 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
     private RecyclerView.LayoutManager mLayoutManager;
 
     public ExchangeRateFragment() {
-        // Required empty public constructor
     }
 
     public static ExchangeRateFragment newInstance(ExchangeRate.Currency currency) {
@@ -86,7 +86,6 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
 
     @Override
     public void onParseDone(List<Bank> banks) {
-        // TODO
         myDataset = new String[16];
         for (int i = 0; banks.size() > i; i++) {
             Bank bank = banks.get(i);
@@ -106,7 +105,5 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
 
     @Override
     public void onParseError(Throwable error) {
-        //TODO
-
     }
 }

@@ -11,6 +11,7 @@ import com.anjlab.fin33.model.ExchangeRate;
  * Created by Саня on 19.10.2016.
  */
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
+
     final int PAGE_COUNT = 3;
     private String tabTitles[] = new String[]{"Best", "EUR", "USD"};
     private Context context;

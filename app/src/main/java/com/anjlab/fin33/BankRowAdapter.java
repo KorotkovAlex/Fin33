@@ -2,7 +2,6 @@ package com.anjlab.fin33;
 
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import java.util.List;
  * Created by Саня on 22.09.2016.
  */
 public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHolder> {
+
     private final ExchangeRate.Currency currency;
     private List<Bank> banks;
 
@@ -41,8 +41,6 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
         Bank bank = banks.get(position);
         List<ExchangeRate> exchangeRates = bank.getExchangeRates();
         ExchangeRate exchangeRateDate = exchangeRates.get(0);
-        Log.d("position", "" + position);
-        Log.d("banks.get(position)", "" + bank.getName());
         ExchangeRate sellRate = bank.getExchangeRates(currency, ExchangeRate.Kind.SELL);
         ExchangeRate buyRate = bank.getExchangeRates(currency, ExchangeRate.Kind.BUY);
         holder.tvNameBank.setText(bank.getName());

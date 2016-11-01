@@ -44,9 +44,8 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void> {
             } else {
                 doc = Jsoup.parse(input, "windows-1251", "");
             }
-            //
-
             new Fin33Parser().parseMainInfo(doc, new BanksUpdatedListener() {
+
                 @Override
                 public void onParseDone(List<Bank> banks) {
 
@@ -76,10 +75,6 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void> {
             }
             AppState.getInstance().updateBanks(banks);
         }
-    }
-
-    public boolean getDemo() {
-        return demo;
     }
 
     public void setDemo(boolean demo) {

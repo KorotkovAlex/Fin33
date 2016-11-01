@@ -10,10 +10,10 @@ import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.ExchangeRate;
 import com.anjlab.fin33.view.ExchangeRateView;
 
-import java.text.ParseException;
 import java.util.List;
 
 public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapter.ViewHolder> {
+
     private ExchangeRate.Currency[] currencies;
     private List<Bank> banks;
 
@@ -39,19 +39,11 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
         ExchangeRate exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.BUY);
         if (exchange != null) {
             bank = exchange.getBank();
-            try {
-                holder.textViewDateBuy.setText("" + exchange.getFormattedDate());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            holder.textViewDateBuy.setText("" + exchange.getFormattedDate());
             holder.textView3.setText(bank.getName());
             holder.ervSell.setExchangeRate(Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL));
             exchange = Bank.findBestRate(banks, currency, ExchangeRate.Kind.SELL);
-            try {
-                holder.textViewDateSell.setText("" + exchange.getFormattedDate());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            holder.textViewDateSell.setText("" + exchange.getFormattedDate());
             bank = exchange.getBank();
             holder.textView4.setText(bank.getName());
         }
