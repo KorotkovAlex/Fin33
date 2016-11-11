@@ -19,7 +19,7 @@ public class SplashScreenActivity extends AppCompatActivity implements BanksUpda
 
     TextView textViewSS;
     TextView textView6;
-
+    Animation animation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +30,8 @@ public class SplashScreenActivity extends AppCompatActivity implements BanksUpda
         textViewSS.setTypeface(font);
         textViewSS.setText(R.string.icon_refresh);
         textView6 = (TextView) findViewById(R.id.textView6);
-        final Animation animationRotateCenter = AnimationUtils.loadAnimation(this, R.anim.rotate);
-        textViewSS.startAnimation(animationRotateCenter);
+        animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        textViewSS.startAnimation(animation);
         AppState.getInstance().subscribe(this);
         ParseFin33Task mt = new ParseFin33Task(null);
         mt.execute();
@@ -58,6 +58,7 @@ public class SplashScreenActivity extends AppCompatActivity implements BanksUpda
         intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
+        finish();
     }
 
 }

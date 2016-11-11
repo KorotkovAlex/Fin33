@@ -22,10 +22,11 @@
             android:id="@+id/textViewDA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="23sp"
+            android:text="@string/icon_up"
+            android:layout_alignParentTop="false"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentTop="true"
-            android:textSize="23sp" />
+            android:layout_alignParentStart="false" />
 
     </RelativeLayout>
 </merge>

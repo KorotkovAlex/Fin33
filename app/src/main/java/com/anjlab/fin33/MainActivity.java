@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
     public void onParseError(Throwable error) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ошибка")
-                .setMessage("Попробуйте включить интернет")
+                .setMessage("Проверьте ваше подключение к интернету")
                 .setCancelable(false)
                 .setNegativeButton("ОК",
                         new DialogInterface.OnClickListener() {

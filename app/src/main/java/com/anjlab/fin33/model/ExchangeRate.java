@@ -104,7 +104,7 @@ public class ExchangeRate {
         }
 
         if (isDemo()) {
-            builder.append(", демо");
+            builder.append(", демо режим");
         }
         return builder.toString();
     }

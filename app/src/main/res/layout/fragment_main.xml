@@ -2,15 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anjlab.fin33.MainFragment">
-
+    tools:context="com.anjlab.fin33.MainFragment"
+    android:background="@color/colorBack">
     <!-- TODO: Update blank fragment layout -->
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="335dp"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true">
+        android:layout_below="@+id/linearLayout">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recycler_view"

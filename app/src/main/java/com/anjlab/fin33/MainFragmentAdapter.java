@@ -52,9 +52,9 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
     private String getTitle(ExchangeRate.Currency currency) {
         switch (currency) {
             case USD:
-                return "USD, лучший курс ";
+                return " USD " ;
             case EUR:
-                return "EUR, лучший курс ";
+                return " EUR ";
             default:
                 return "?";
         }

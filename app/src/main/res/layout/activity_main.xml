@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.anjlab.fin33.MainActivity">
+    tools:context="com.anjlab.fin33.MainActivity"
+    android:background="@android:color/white">
 
 
     <android.support.design.widget.AppBarLayout
@@ -28,15 +29,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="false"
+            style="@style/MyCustomTabLayout"
             app:tabGravity="center"
             app:tabMode="fixed"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/testColor2"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:translationZ="3dp"
+        android:layout_below="@+id/appBar"
+        android:id="@+id/linearLayout1">
 
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/buy"
+            android:textColor="@color/colorText"
+            android:textIsSelectable="false"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/sell"
+            android:textColor="@color/colorText"
+            android:textIsSelectable="false"
+            android:textSize="20sp" />
+    </LinearLayout>
     <android.support.v4.view.ViewPager
-
+        android:background="@android:color/white"
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/appBar" />
+        android:layout_below="@+id/linearLayout1" />
 </RelativeLayout>

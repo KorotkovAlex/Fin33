@@ -64,10 +64,10 @@ public class ExchangeRateView extends LinearLayout {
             bank.getName();
             if (exchangeRate.getTrend() == ExchangeRate.Trend.UP) {
                 textViewDA.setText(R.string.icon_up);
-                textViewDA.setTextColor(getResources().getColor(R.color.colorUp));
+                textViewDA.setTextColor(getResources().getColor(R.color.testColor));
             } else if (exchangeRate.getTrend() == ExchangeRate.Trend.DOWN) {
                 textViewDA.setText(R.string.icon_down);
-                textViewDA.setTextColor(getResources().getColor(R.color.colorDown));
+                textViewDA.setTextColor(getResources().getColor(R.color.testColor2));
             } else {
                 textViewDA.setText(null);
             }

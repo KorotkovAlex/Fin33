@@ -26,17 +26,18 @@ public class ErrorSplashActivity extends AppCompatActivity implements BanksUpdat
         TextView textView = (TextView) findViewById(R.id.textViewES);
         textView.setTypeface(font);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        RelativeLayout rlR = (RelativeLayout) findViewById(R.id.relativeLayoutReset);
-        RelativeLayout rlD = (RelativeLayout) findViewById(R.id.relativeLayoutDemo);
-        rlR.setOnClickListener(new View.OnClickListener() {
+        RelativeLayout rlReset = (RelativeLayout) findViewById(R.id.relativeLayoutReset);
+        RelativeLayout rlDemoMode = (RelativeLayout) findViewById(R.id.relativeLayoutDemo);
+        rlReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ErrorSplashActivity.this, SplashScreenActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK & Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                finish();
             }
         });
-        rlD.setOnClickListener(new View.OnClickListener() {
+        rlDemoMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (AppState.getInstance().getBanks().isEmpty()) {
@@ -51,7 +52,12 @@ public class ErrorSplashActivity extends AppCompatActivity implements BanksUpdat
                 } else {
                     onParseDone(AppState.getInstance().getBanks());
                 }
+                Intent intent = new Intent(ErrorSplashActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+                finish();
             }
+
         });
     }
 

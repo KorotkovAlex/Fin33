@@ -4,6 +4,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,8 +19,9 @@ import java.util.List;
  */
 public class Fin33Parser {
 
+    Document docBank;
     public void parseMainInfo(final Document doc, final BanksUpdatedListener listener)
-            throws ParseException {
+            throws ParseException, IOException {
 
         final List<Bank> banks = new ArrayList<>();
         Elements trs = doc.select("table.otscourses tr");
@@ -32,6 +34,9 @@ public class Fin33Parser {
             Element td = tds.get(0);
             Element a = td.select("a").first();
             a.attr("href");
+
+            String link = "http://www.fin33.ru" + a.attr("href");
+            bank.setLink(link);
             bank.setName(a.text());
             Element sup = td.select("sup").first();
             if (sup.children().size() == 1) {

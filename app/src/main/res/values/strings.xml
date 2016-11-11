@@ -1,20 +1,23 @@
 <resources>
-    <string name="app_name">Fin33</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Курсы валют во Владимире</string>
     <string name="buy">Покупка</string>
     <string name="sell">Продажа</string>
-    <string name="icon_heart">&#xf119;</string>
-    <string name="icon_down">&#xf063;</string>
-    <string name="icon_up">&#xf062;</string>
-    <string name="icon_best">&#xf087;</string>&#xf021;
-    <string name="icon_refresh">&#xf021;</string>
-    <string name="error">Ошибка</string>
-    <string name="restar">Reset</string>
-    <string name="demo">Demo</string>
+    <string name="error">Что-то пошло не так...</string>
+    <string name="restart">Попробовать еще</string>
+    <string name="demo">Демо режим</string>
     <string name="loading_data">Загрузка данных</string>
     <string name="date">Дата</string>
     <string name="name_bank">Название банка</string>
-    <string name="course">75.000</string>
+    <string name="course">75.0000</string>
+    <string name="best_course">Лучший курс</string>
+
+    <string name="icon_heart">&#xf119;</string>
+    <string name="icon_down">&#xf063;</string>
+    <string name="icon_up">&#xf062;</string>
+    <string name="icon_best">&#xf087;</string>
+    <string name="icon_refresh">&#xf021;</string>
+    <string name="icon_angle">&#xf105;</string>
+    <string name="eur">&#xf153;</string>
+    <string name="usd">&#xf155;</string>
+    <string name="link">Перейти на сайт &#xf08e;</string>
 </resources>

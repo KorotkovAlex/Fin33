@@ -2,15 +2,21 @@
 <resources>
     <color name="colorPrimary">#27ae61</color>
     <color name="colorPrimaryDark">#27ae61</color>
-    <color name="colorAccent">#cecece</color>
+    <color name="colorAccent">#ededed</color>
     <color name="colorDollar">#27ae61</color>
     <color name="colorUp">#27ae61</color>
     <color name="colorDown">#c12326</color>
     <color name="colorText">#f1f1f1</color>
-    <color name="colorBest">#1565c0</color>
+    <color name="colorBest">#27ae61</color>
     <color name="colorNonBest">#cecece</color>
+    <color name="colorDop">#f7f7f7</color>
+    <color name="colorBack">#efefef</color>
     <color name="colorSplashScreenBackground">#160d50</color>
-
     <color name="window_background">#CC000000</color>
 
+    <color name="testColorDark">#098053</color>
+    <color name="testColor">#0DA76D</color>
+    <color name="testColor2">#F75A13</color>
+    <color name="link">#315df1</color>
+    <color name="orange">#FF2300</color>
 </resources>

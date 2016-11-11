@@ -8,8 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
@@ -30,10 +28,7 @@ import java.util.List;
  */
 public class ExchangeRateFragment extends Fragment implements BanksUpdatedListener {
 
-    public LinearLayout mN;
-    //String[] myDataset;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    ;
     ExchangeRate.Currency currency;
     ArrayList<String> myDataset = new ArrayList<String>();
     private RecyclerView mRecyclerView;
@@ -56,7 +51,6 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exchange_rate, container, false);
-        mN = (LinearLayout) view.findViewById(R.id.messageNull);
         this.currency = (ExchangeRate.Currency) getArguments().getSerializable("currency");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -89,22 +83,12 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
 
     @Override
     public void onParseDone(List<Bank> banks) {
-
-        //myDataset = new String[17];
         for (int i = 0; banks.size() > i; i++) {
             Bank bank = banks.get(i);
-            //myDataset[i] = bank.getName();
             myDataset.add(bank.getName());
         }
         mAdapter = new BankRowAdapter(banks, currency);
         mRecyclerView.setAdapter(mAdapter);
-        TextView btnNew = new TextView(getContext());
-        if (banks.size() == 0) {
-            btnNew.setText("Перезагрузите приложение");
-            mN.addView(btnNew);
-        } else {
-            btnNew.setText("");
-        }
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
