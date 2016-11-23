@@ -2,25 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
-
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
-        android:id="@+id/action_settings2"
-        android:title="Fin33"
-        app:showAsAction="always" />
-
-    <!-- Settings, should always be in the overflow -->
-    <item
-        android:id="@+id/action_test"
-        android:title="test"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_test2"
-        android:title="test2"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_test3"
-        android:title="test3"
-        app:showAsAction="never" />
-
+        android:id="@+id/about"
+        android:title="О программе"
+        app:showAsAction="never"/>
 </menu>

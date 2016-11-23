@@ -9,6 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
@@ -37,7 +40,9 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
         viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
                 MainActivity.this));
         tabLayout.setupWithViewPager(viewPager);
+
         AppState.getInstance().subscribe(this);
+
     }
 
     @Override
@@ -67,5 +72,33 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
         alert.show();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.app_bar, menu);
 
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menu) {
+        switch (menu.getItemId()) {
+            case R.id.about:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("О программе")
+                        .setMessage("Курсы валют во Владимире \n" + "Версия 1.0")
+                        .setCancelable(false)
+                        .setNegativeButton("ОК",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+                return true;
+        }
+        return true;
+    }
 }

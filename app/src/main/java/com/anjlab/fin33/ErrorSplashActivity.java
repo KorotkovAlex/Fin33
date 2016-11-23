@@ -70,4 +70,6 @@ public class ErrorSplashActivity extends AppCompatActivity implements BanksUpdat
     public void onParseError(Throwable error) {
 
     }
+
+
 }

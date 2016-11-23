@@ -10,6 +10,12 @@ import java.util.Date;
  */
 public class ExchangeRate {
 
+    public enum Kind {BUY, SELL}
+
+    public enum Currency {USD, EUR}
+
+    public enum Trend {UP, DOWN, NONE}
+
     //  TODO Wrap with ThreadLocal to make them thread-safe
     public static final SimpleDateFormat HH_MM_FORMAT = new SimpleDateFormat("HH:mm");
     public static final SimpleDateFormat DD_MM_YYYY_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
@@ -132,9 +138,5 @@ public class ExchangeRate {
                 '}';
     }
 
-    public enum Kind {BUY, SELL}
 
-    public enum Currency {USD, EUR}
-
-    public enum Trend {UP, DOWN, NONE}
 }

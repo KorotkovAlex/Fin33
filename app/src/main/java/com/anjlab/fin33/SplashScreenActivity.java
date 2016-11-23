@@ -60,5 +60,4 @@ public class SplashScreenActivity extends AppCompatActivity implements BanksUpda
         startActivity(intent);
         finish();
     }
-
 }

@@ -1,18 +1,26 @@
 package com.anjlab.fin33;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 
 import com.anjlab.fin33.model.AppState;
 import com.anjlab.fin33.model.Bank;
 import com.anjlab.fin33.model.BanksUpdatedListener;
 import com.anjlab.fin33.model.ExchangeRate;
+import com.anjlab.fin33.model.Fin33BestExchangeRateParser;
 import com.anjlab.fin33.model.Fin33Parser;
+import com.anjlab.fin33.model.TimeSeries;
+import com.anjlab.fin33.model.Value;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Саня on 21.10.2016.
@@ -24,6 +32,8 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void> {
     private List<Bank> banks;
     private Throwable error;
     private boolean demo;
+    private TimeSeries timeSeries;
+    private Map<String, List<TimeSeries>> timeSeriesMap = new HashMap<>();
 
     public ParseFin33Task(InputStream input) {
         this.input = input;
@@ -38,17 +48,17 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
+            graph();
             Document doc;
             if (input == null) {
                 doc = Jsoup.connect(url).get();
             } else {
                 doc = Jsoup.parse(input, "windows-1251", "");
             }
+            //new Fin33BestExchangeRateParser("http://www.fin33.ru/best_eur.txt").executeHttpGet();
             new Fin33Parser().parseMainInfo(doc, new BanksUpdatedListener() {
-
                 @Override
                 public void onParseDone(List<Bank> banks) {
-
                     ParseFin33Task.this.banks = banks;
                 }
 
@@ -63,6 +73,8 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
+
+
     @Override
     protected void onPostExecute(Void result) {
         if (error != null) {
@@ -74,7 +86,34 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void> {
                 }
             }
             AppState.getInstance().updateBanks(banks);
+            AppState.getInstance().updateGraph(timeSeriesMap);
         }
+    }
+
+    public void graph() throws IOException {
+        List<TimeSeries> timeSeriesList = new ArrayList<>();
+        timeSeries = new TimeSeries();
+        timeSeries.setColor(Color.RED);
+        timeSeries.setTitle("Покупка");
+        timeSeries.setValues(new Fin33BestExchangeRateParser("http://www.fin33.ru/best_eur.txt",8,
+                    "&values=").executeHttpGet());
+        timeSeriesList.add(timeSeries);
+
+        timeSeries = new TimeSeries();
+        timeSeries.setColor(Color.GREEN);
+        timeSeries.setTitle("Продажа");
+        timeSeries.setValues(new Fin33BestExchangeRateParser("http://www.fin33.ru/best_eur.txt",10,
+                "&values_2=").executeHttpGet());
+        timeSeriesList.add(timeSeries);
+
+        timeSeries = new TimeSeries();
+        timeSeries.setColor(Color.BLUE);
+        timeSeries.setTitle("Центральный банк");
+        timeSeries.setValues(new Fin33BestExchangeRateParser("http://www.fin33.ru/best_eur.txt",10,
+                "&values_3=").executeHttpGet());
+        timeSeriesList.add(timeSeries);
+
+        timeSeriesMap.put("eur",timeSeriesList);
     }
 
     public void setDemo(boolean demo) {

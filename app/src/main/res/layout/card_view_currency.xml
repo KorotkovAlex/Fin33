@@ -114,7 +114,7 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:id="@+id/linearLayoutTest"
             android:background="@color/colorDop">
 
@@ -127,14 +127,14 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:clickable="true"
                 android:id="@+id/linearLayoutLink">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:text="@string/link"
                     android:id="@+id/textViewLink"
                     android:autoLink="web"
@@ -144,10 +144,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -96,6 +96,7 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
             animationRotateCenter.setFillAfter(true);
             holder.textViewAngle.startAnimation(animationRotateCenter);
         }
+
     }
 
 
@@ -118,6 +119,7 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
         private LinearLayout linearLayoutTest;
         private LinearLayout linearLayoutLink;
         private TextView textViewLink;
+
         public ViewHolder(View v) {
             super(v);
             linearLayoutTest = (LinearLayout) v.findViewById(R.id.linearLayoutTest) ;
@@ -180,7 +182,7 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
                         final Animation animationRotateCenter = AnimationUtils.loadAnimation(v.getContext(), R.anim.angle);
                         animationRotateCenter.setFillAfter(true);
                         textViewAngle.startAnimation(animationRotateCenter);
-                        ValueAnimator va = ValueAnimator.ofInt(linearLayoutTest.getHeight(),100);
+                        ValueAnimator va = ValueAnimator.ofInt(0,10);
                         va.setDuration(400);
                         va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             public void onAnimationUpdate(ValueAnimator animation) {

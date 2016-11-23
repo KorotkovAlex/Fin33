@@ -22,7 +22,6 @@ public class Fin33Parser {
     Document docBank;
     public void parseMainInfo(final Document doc, final BanksUpdatedListener listener)
             throws ParseException, IOException {
-
         final List<Bank> banks = new ArrayList<>();
         Elements trs = doc.select("table.otscourses tr");
         trs.remove(0);

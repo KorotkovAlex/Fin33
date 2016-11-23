@@ -96,4 +96,6 @@ public class ExchangeRateFragment extends Fragment implements BanksUpdatedListen
     public void onParseError(Throwable error) {
         mSwipeRefreshLayout.setRefreshing(false);
     }
+
+
 }
