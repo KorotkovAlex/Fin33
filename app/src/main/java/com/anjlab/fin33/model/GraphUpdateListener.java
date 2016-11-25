@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public interface GraphUpdateListener {
 
-    void onParseDone(Map<String , List<TimeSeries>> map);
+    void onParseDone(Map<Integer, List<TimeSeries>> map);
 
     //void onParseError(Throwable error);
 }

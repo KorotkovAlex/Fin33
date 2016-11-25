@@ -33,7 +33,7 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void> {
     private Throwable error;
     private boolean demo;
     private TimeSeries timeSeries;
-    private Map<String, List<TimeSeries>> timeSeriesMap = new HashMap<>();
+    private Map<Integer, List<TimeSeries>> timeSeriesMap = new HashMap<>();
 
     public ParseFin33Task(InputStream input) {
         this.input = input;
@@ -91,29 +91,54 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void> {
     }
 
     public void graph() throws IOException {
+        Color color = new Color();
         List<TimeSeries> timeSeriesList = new ArrayList<>();
         timeSeries = new TimeSeries();
-        timeSeries.setColor(Color.RED);
+        timeSeries.setColor(color.argb(255,247,90,19));
         timeSeries.setTitle("Покупка");
         timeSeries.setValues(new Fin33BestExchangeRateParser("http://www.fin33.ru/best_eur.txt",8,
                     "&values=").executeHttpGet());
         timeSeriesList.add(timeSeries);
 
         timeSeries = new TimeSeries();
-        timeSeries.setColor(Color.GREEN);
+        timeSeries.setColor(color.argb(255,9,128,83));
         timeSeries.setTitle("Продажа");
         timeSeries.setValues(new Fin33BestExchangeRateParser("http://www.fin33.ru/best_eur.txt",10,
                 "&values_2=").executeHttpGet());
         timeSeriesList.add(timeSeries);
 
         timeSeries = new TimeSeries();
-        timeSeries.setColor(Color.BLUE);
-        timeSeries.setTitle("Центральный банк");
+        timeSeries.setColor(color.argb(255,69,102,214));
+        timeSeries.setTitle("Курс ЦБ");
         timeSeries.setValues(new Fin33BestExchangeRateParser("http://www.fin33.ru/best_eur.txt",10,
                 "&values_3=").executeHttpGet());
         timeSeriesList.add(timeSeries);
 
-        timeSeriesMap.put("eur",timeSeriesList);
+        timeSeriesMap.put(1,timeSeriesList);
+
+        timeSeriesList = new ArrayList<>();
+        timeSeries = new TimeSeries();
+        timeSeries.setColor(color.argb(255,247,90,19));
+        timeSeries.setTitle("Покупка");
+        timeSeries.setValues(new Fin33BestExchangeRateParser("http://www.fin33.ru/best_usd.txt",8,
+                "&values=").executeHttpGet());
+        timeSeriesList.add(timeSeries);
+
+        timeSeries = new TimeSeries();
+        timeSeries.setColor(color.argb(255,9,128,83));
+        timeSeries.setTitle("Продажа");
+        timeSeries.setValues(new Fin33BestExchangeRateParser("http://www.fin33.ru/best_usd.txt",10,
+                "&values_2=").executeHttpGet());
+        timeSeriesList.add(timeSeries);
+
+        timeSeries = new TimeSeries();
+        timeSeries.setColor(color.argb(255,69,102,214));
+        timeSeries.setTitle("Курс ЦБ");
+        timeSeries.setValues(new Fin33BestExchangeRateParser("http://www.fin33.ru/best_usd.txt",10,
+                "&values_3=").executeHttpGet());
+        timeSeriesList.add(timeSeries);
+
+        timeSeriesMap.put(0,timeSeriesList);
     }
 
     public void setDemo(boolean demo) {

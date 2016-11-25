@@ -1,14 +1,20 @@
 package com.anjlab.fin33.model;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.FieldPosition;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +50,7 @@ public class Fin33BestExchangeRateParser {
                     Value value = new Value();
                     try {
                         value.setDate(format.parse(strSplit[i]));
+                        Log.d("value.getdate", " " + value.getDate());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }

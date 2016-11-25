@@ -16,7 +16,9 @@
 
     <color name="testColorDark">#098053</color>
     <color name="testColor">#0DA76D</color>
+    <color name="graphColorBlue">#ff4566d6</color>
     <color name="testColor2">#F75A13</color>
     <color name="link">#315df1</color>
     <color name="orange">#FF2300</color>
+    <color name="text">#4b4b4b</color>
 </resources>

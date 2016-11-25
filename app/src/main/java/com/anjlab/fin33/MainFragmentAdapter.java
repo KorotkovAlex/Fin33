@@ -1,6 +1,7 @@
 package com.anjlab.fin33;
 
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,17 @@ import com.anjlab.fin33.model.GraphUpdateListener;
 import com.anjlab.fin33.model.TimeSeries;
 import com.anjlab.fin33.model.Value;
 import com.anjlab.fin33.view.ExchangeRateView;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +35,7 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
 
     private ExchangeRate.Currency[] currencies;
     private List<Bank> banks;
-
+    View v;
     public MainFragmentAdapter(List<Bank> banks, ExchangeRate.Currency[] currencies) {
         this.banks = banks;
         this.currencies = currencies;
@@ -37,7 +43,7 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
 
     @Override
     public MainFragmentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.
+        v = LayoutInflater.
                 from(parent.getContext()).
                 inflate(R.layout.card_view, parent, false);
         return new ViewHolder(v);
@@ -62,37 +68,48 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
         }
         AppState.getInstance().subscribeGraph(this);
         //onParseDone(AppState.getInstance().getGraph());
-        drawGrapg(holder,AppState.getInstance().getGraph());
+        drawGrapg(holder,AppState.getInstance().getGraph(), position);
     }
 
-    public void drawGrapg(ViewHolder holder, Map<String , List<TimeSeries>> map){
+    public void drawGrapg(ViewHolder holder, Map<Integer, List<TimeSeries>> map, int position){
         List<Value> values;
         LineGraphSeries<DataPoint> series = null;
         PointsGraphSeries<DataPoint> seriesP = null;
         int i = 0;
-        for (List<TimeSeries> timeSeriesList : map.values()) {
-            DataPoint[] data = new DataPoint[14];
-            for (TimeSeries timeSeries: timeSeriesList) {
-                values = timeSeries.getValues();
-                String col;
-                for (Value value : values) {
-                    data[i] = new DataPoint(value.getDate(),value.getValue().doubleValue());
-                    i++;
+        for (Map.Entry entry : map.entrySet()) {
+            List<TimeSeries> timeSeriesList = new ArrayList<>();
+            timeSeriesList = (List<TimeSeries>) entry.getValue();
+            if (position == (int)entry.getKey()) {
+                DataPoint[] data = new DataPoint[14];
+                for (TimeSeries timeSeries : timeSeriesList) {
+                    values = timeSeries.getValues();
+                    String col;
+                    for (Value value : values) {
+                        data[i] = new DataPoint(value.getDate(), value.getValue().doubleValue());
+                        i++;
+                    }
+                    i = 0;
+                    series = new LineGraphSeries<DataPoint>(data);
+                    series.setDrawDataPoints(true);
+                    series.setDataPointsRadius(6);
+                    series.setThickness(5);
+                    holder.graph.addSeries(series);
+                    series.setColor(timeSeries.getColor());
+                    series.setTitle(timeSeries.getTitle());
+                    holder.graph.getLegendRenderer().setVisible(true);
+                    Color color = new Color();
+
+                    holder.graph.getGridLabelRenderer().setHorizontalLabelsColor(color.argb(255,124,124,124));
+                    holder.graph.getGridLabelRenderer().setVerticalLabelsColor(color.argb(255,124,124,124));
+                    holder.graph.getGridLabelRenderer().setHumanRounding(false);
+                    holder.graph.getViewport().setXAxisBoundsManual(true);
+                    holder.graph.getGridLabelRenderer().setNumHorizontalLabels(data.length / 2);
+                    holder.graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+                    holder.graph.getGridLabelRenderer().setLabelFormatter(
+                            new DateAsXAxisLabelFormatter(v.getContext(), new SimpleDateFormat("dd")));
                 }
-                i=0;
-                series = new LineGraphSeries<DataPoint>(data);
-                holder.graph.addSeries(series);
-
-                //holder.graph.setLegendRenderer();
-                series.setColor(timeSeries.getColor());
-                series.setTitle(timeSeries.getTitle());
-                holder.graph.getLegendRenderer().setVisible(true);
-                holder.graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
             }
-
         }
-        
-        
     }
 
     private String getTitle(ExchangeRate.Currency currency) {
@@ -112,8 +129,7 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
     }
 
     @Override
-    public void onParseDone(Map<String , List<TimeSeries>> map) {
-
+    public void onParseDone(Map<Integer, List<TimeSeries>> map) {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

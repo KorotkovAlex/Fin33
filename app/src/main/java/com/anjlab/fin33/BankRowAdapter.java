@@ -182,7 +182,7 @@ public class BankRowAdapter extends RecyclerView.Adapter<BankRowAdapter.ViewHold
                         final Animation animationRotateCenter = AnimationUtils.loadAnimation(v.getContext(), R.anim.angle);
                         animationRotateCenter.setFillAfter(true);
                         textViewAngle.startAnimation(animationRotateCenter);
-                        ValueAnimator va = ValueAnimator.ofInt(0,10);
+                        ValueAnimator va = ValueAnimator.ofInt(0,100);
                         va.setDuration(400);
                         va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             public void onAnimationUpdate(ValueAnimator animation) {

@@ -40,9 +40,7 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
         viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
                 MainActivity.this));
         tabLayout.setupWithViewPager(viewPager);
-
         AppState.getInstance().subscribe(this);
-
     }
 
     @Override

@@ -15,7 +15,7 @@ public class AppState {
     private static AppState appState = new AppState();
     private List<Bank> banks = new ArrayList<>();
     private List<BanksUpdatedListener> subscribers = new ArrayList<>();
-    private Map<String,List<TimeSeries>> timeSeriesMap = new HashMap<String,List<TimeSeries>>();
+    private Map<Integer,List<TimeSeries>> timeSeriesMap = new HashMap<Integer,List<TimeSeries>>();
     private List<GraphUpdateListener> subscribersWithGraphs = new ArrayList<>();
     public AppState() {
     }
@@ -29,7 +29,7 @@ public class AppState {
         notifySubscribers();
     }
 
-    public void updateGraph(Map <String,List<TimeSeries>> timeSeries) {
+    public void updateGraph(Map <Integer,List<TimeSeries>> timeSeries) {
         this.timeSeriesMap = timeSeries;
         notifySubscribers();
     }
@@ -47,7 +47,7 @@ public class AppState {
         subscribersWithGraphs.add(listener);
         Log.d("Count subscribers", "" + subscribers.size());
     }
-    public Map<String,List<TimeSeries>> getGraph() {
+    public Map<Integer,List<TimeSeries>> getGraph() {
         return timeSeriesMap;
     }
     private void notifySubscribers() {
