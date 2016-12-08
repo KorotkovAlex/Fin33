@@ -48,10 +48,11 @@ class ParseFin33Task extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            graph();
+
             Document doc;
             if (input == null) {
                 doc = Jsoup.connect(url).get();
+                graph();
             } else {
                 doc = Jsoup.parse(input, "windows-1251", "");
             }

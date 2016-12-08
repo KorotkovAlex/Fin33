@@ -17,6 +17,7 @@ import com.anjlab.fin33.model.Value;
 import com.anjlab.fin33.view.ExchangeRateView;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
@@ -98,15 +99,20 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
                     series.setTitle(timeSeries.getTitle());
                     holder.graph.getLegendRenderer().setVisible(true);
                     Color color = new Color();
-
-                    holder.graph.getGridLabelRenderer().setHorizontalLabelsColor(color.argb(255,124,124,124));
-                    holder.graph.getGridLabelRenderer().setVerticalLabelsColor(color.argb(255,124,124,124));
+                    int colorRGB = color.argb(255,124,124,124);
+                    GridLabelRenderer gridLabel = holder.graph.getGridLabelRenderer();
+                    gridLabel.setHorizontalAxisTitle("Дата");
+                    gridLabel.setHorizontalAxisTitleColor(colorRGB);
+                    gridLabel.setHorizontalAxisTitleTextSize(25f);
+                    holder.graph.getGridLabelRenderer().setTextSize(20f);
+                    holder.graph.getGridLabelRenderer().setHorizontalLabelsColor(colorRGB);
+                    holder.graph.getGridLabelRenderer().setVerticalLabelsColor(colorRGB);
                     holder.graph.getGridLabelRenderer().setHumanRounding(false);
                     holder.graph.getViewport().setXAxisBoundsManual(true);
                     holder.graph.getGridLabelRenderer().setNumHorizontalLabels(data.length / 2);
                     holder.graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
                     holder.graph.getGridLabelRenderer().setLabelFormatter(
-                            new DateAsXAxisLabelFormatter(v.getContext(), new SimpleDateFormat("dd")));
+                            new DateAsXAxisLabelFormatter(v.getContext(), new SimpleDateFormat("dd.MM")));
                 }
             }
         }

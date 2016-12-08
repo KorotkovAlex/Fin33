@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements BanksUpdatedListe
             case R.id.about:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("О программе")
-                        .setMessage("Курсы валют во Владимире \n" + "Версия 1.0")
+                        .setMessage("Курсы валют во Владимире \n" + "Версия 1.1")
                         .setCancelable(false)
                         .setNegativeButton("ОК",
                                 new DialogInterface.OnClickListener() {
